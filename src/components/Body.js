@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import RestaurantCard from "./RestaurantCard.js";
+import RestaurantCard, { withVegLable } from "./RestaurantCard.js";
 import Shimmer from "./Shimmer";
 import { swiggy_api_URL } from "../constant.js";
 import { Link } from "react-router-dom";
+import useOnline from "../utils/useOnline.js";
+import { useAuth } from "../utils/AuthContext.js";
 
 function filterData(searchText, restaurants){
+  
     const filterData = restaurants.filter((restaurant) => 
     restaurant.info.name?.toLowerCase()?.includes(searchText.toLowerCase())
     );
@@ -16,7 +19,13 @@ const Body = () => {
   const [filteredRestaurants,setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  
+  // A restaurant card component which has a label  on it 
+  const RestaurantCardVeg = withVegLable(RestaurantCard)
 
+  // Whenever state variables update, react triggers a reconciliation cycle
+    const {userName, setUserName} = useAuth();
+  
   // use useEffect for one time call getRestaurants using empty dependency array
   useEffect(() => {
     // API Call
@@ -28,8 +37,9 @@ const Body = () => {
     // handle the error using try... catch
     try {
       const response = await fetch(swiggy_api_URL);
+      
       const json = await response.json();
-
+      
       // initialize checkJsonData() function to check Swiggy Restaurant data
       async function checkJsonData(jsonData) {
         for (let i = 0; i < jsonData?.data?.cards.length; i++) {
@@ -46,17 +56,16 @@ const Body = () => {
 
       // call the checkJsonData() function which return Swiggy Restaurant data
       const resData = await checkJsonData(json);
-
         // update the state variable restaurants with Swiggy API data
         setAllRestaurants(resData);
         setFilteredRestaurants(resData);
       } catch (error) {
         console.log(error);
       }
-    }
+  }
 
-    // use searchData function and set condition if data is empty show error message
-  const searchData = (searchText, restaurants) => {
+  // use searchData function and set condition if data is empty show error message
+  const searchData = (searchText, restaurants) => {  
     if (searchText !== "") {
       const filteredData = filterData(searchText, restaurants);
       setFilteredRestaurants(filteredData);
@@ -69,41 +78,54 @@ const Body = () => {
       setFilteredRestaurants(restaurants);
     }
   };
+ 
+  const online = useOnline();
+  if(!online){
+    return <h1 className="offline">You are offline, please check your internet connection!</h1>
+  }
 
   // not rendered component (Early return)
   if(!allRestaurants) return null;
-
-  // if(filteredRestaurants?.length === 0) return <h1>No Restaurant match your Filter!</h1>
-
     return (
       <>
-         <div className="search-container">
-            <input type="text" className="search-input" placeholder="Search"
+         <div className="search-container h-auto bg-purple-50 my-5 shadow-sm">
+            <input type="text" className="m-3 p-2 shadow-md rounded-md focus:outline-none focus:ring focus:ring-violet-300" placeholder="Search"
              value={searchText}
               onChange={(e) => setSearchText(e.target.value) }
             />
             <button 
-              className="search-btn"
+              className="p-2 m-2 text-white rounded-md bg-slate-600 hover:bg-violet-600"
               onClick={() => {
-                // const data = filterData(searchText, allRestaurants);
-                // setFilteredRestaurants(data)
-                 // user click on button searchData function is called
                   searchData(searchText, allRestaurants);
               }}      
             >Search</button> 
+
+            <label className="ml-32 font-serif">UserInfo: </label>
+            <input className=" p-2 shadow-md rounded-sm focus:outline-none focus:ring focus:ring-violet-300" placeholder="Change login info" 
+              onChange={(e)=>setUserName(e.target.value)} value={userName}
+            />
+        </div>
+
+        <div className="m-4 p-4 items-cent">
+          <input />
         </div>
 
         {errorMessage && <div className="error-container">{errorMessage}</div>}
 
+        
+
       {allRestaurants?.length === 0 ? (
         <Shimmer />
         ) : (
-        <div className="restaurant-list">
+        <div className="flex flex-wrap justify-center">
             {        
               filteredRestaurants.map((restaurant) =>{
                  return(
-                  <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id} >
-                    <RestaurantCard {...restaurant?.info}  />
+                  <Link to={"/restaurant/"+restaurant?.info?.id} key={restaurant?.info?.id} >                    
+                    {/** if the reatuarant is veg then add a veg lable to it */
+                     restaurant.info.veg  ? (<RestaurantCardVeg {...restaurant?.info}/>) : (<RestaurantCard {...restaurant?.info}/>)
+                    }
+                    
                   </Link>
                 );
               })       

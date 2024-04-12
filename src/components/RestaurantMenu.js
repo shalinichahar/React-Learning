@@ -1,133 +1,132 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // import useParams for read `resId`
-import {
-  swiggy_menu_api_URL,
-  IMG_CDN_URL,
-  ITEM_IMG_CDN_URL,
-  MENU_ITEM_TYPE_KEY,
-  RESTAURANT_TYPE_KEY,
-} from "../constant";
+import useRestaurantMenu from "../utils/useRestaurant";
+import RestaurantCategory from "./RestaurantCategory";
+import { useEffect, useState } from "react";
 import {MenuShimmer} from "./Shimmer";
-
+import { MENU_API, IMG_CDN_URL} from "../constant";
+// import {
+//   IMG_CDN_URL,
+//   ITEM_IMG_CDN_URL,
+// } from "../constant";
+ 
 const RestaurantMenu = () => {
-  const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
-  const [restaurant, setRestaurant] = useState(null); // call useState to store the api data in res
-  const [menuItems, setMenuItems] = useState([]);
-  useEffect(() => {
-    getRestaurantInfo(); // call getRestaurantInfo function so it fetch api data and set data in restaurant state variable
-  }, []);
+  const {resId} = useParams();
 
-  async function getRestaurantInfo() {
-    const options = {
-      method: 'GET',
-      headers: {
-          accept: 'application/json',
-          Authorization: ("Access-Control-Allow-Origin", "*"),
-      }
-    };
-    try {
-      const response = await fetch(swiggy_menu_api_URL + resId,options);
-      const json = await response.json();
+  //to render the menu data
+  const [restaurantInfo, menuItems] = useRestaurantMenu(resId);
 
-      // Set restaurant data
-      const restaurantData = json?.data?.cards?.map(x => x.card)?.
-                             find(x => x && x.card['@type'] === RESTAURANT_TYPE_KEY)?.card?.info || null;
-      setRestaurant(restaurantData);
+  //by default first accordian is open
+  const [showIndex, setShowIndex] = useState(null);
 
-      // Set menu item data
-      const menuItemsData = json?.data?.cards.find(x=> x.groupedCard)?.
-                            groupedCard?.cardGroupMap?.REGULAR?.
-                            cards?.map(x => x.card?.card)?.
-                            filter(x=> x['@type'] == MENU_ITEM_TYPE_KEY)?.
-                            map(x=> x.itemCards).flat().map(x=> x.card?.info) || [];
-      
-      const uniqueMenuItems = [];
-      menuItemsData.forEach((item) => {
-        if (!uniqueMenuItems.find(x => x.id === item.id)) {
-          uniqueMenuItems.push(item);
-        }
-      })
-      setMenuItems(uniqueMenuItems);
-    } catch (error) {
-      setMenuItems([]);
-      setRestaurant(null);
-      console.log(error);
-    }
-  }
+  const uniqueCategories = Array.from(new Set(menuItems.map(item => item.category)));
 
-  return !restaurant ? (
-    <MenuShimmer />
+  const itemsByCategory = uniqueCategories.map(category => ({
+    category,
+    items: menuItems.filter(item => item.category === category),
+  }));
+
+  return (!restaurantInfo) ? (
+    <MenuShimmer/>
   ) : (
-    <div className="restaurant-menu">
-      <div className="restaurant-summary">
-        <img
-          className="restaurant-img"
-          src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
-          alt={restaurant?.name}
-        />
-        <div className="restaurant-summary-details">
-          <h2 className="restaurant-title">{restaurant?.name}</h2>
-          <p className="restaurant-tags">{restaurant?.cuisines?.join(", ")}</p>
-          <div className="restaurant-details">
-            <div className="restaurant-rating" style={
-            (restaurant?.avgRating) < 4
-              ? { backgroundColor: "var(--light-red)" }
-              : (restaurant?.avgRating) === "--"
-              ? { backgroundColor: "white", color: "black" }
-              : { color: "white" }
-          }>
-            <i className="fa-solid fa-star"></i>
-              <span>{restaurant?.avgRating}</span>
-            </div>
-            <div className="restaurant-rating-slash">|</div>
-            <div>{restaurant?.sla?.slaString}</div>
-            <div className="restaurant-rating-slash">|</div>
-            <div>{restaurant?.costForTwoMessage}</div>
-          </div>
+    <div className="text-center  bg-gray-100">
+      <div className="text-center m-2">
+        <div className="px-5 mx-5">
+          <h1 className="font-bold font-sans text-4xl m-6">{restaurantInfo?.name}</h1>
+          <img className="mx-auto m-3" src={IMG_CDN_URL + restaurantInfo?.cloudinaryImageId} /> 
+          <h3 className="text-lg font-semibold">{restaurantInfo?.costForTwoMessage}</h3>
+          <h3 className="text-2xl font-semibold font-serif text-gray-900">{restaurantInfo?.cuisines.join(", ")}</h3>
         </div>
-      </div>
-
-      <div className="restaurant-menu-content">
-        <div className="menu-items-container">
-          <div className="menu-title-wrap">
-            <h3 className="menu-title">Recommended</h3>
-            <p className="menu-count">
-              {menuItems.length} ITEMS
-            </p>
-          </div>
-          <div className="menu-items-list">
-            {menuItems.map((item) => (
-              <div className="menu-item" key={item?.id}>
-                <div className="menu-item-details">
-                  <h3 className="item-title">{item?.name}</h3>
-                  <p className="item-cost">
-                    {item?.price > 0
-                      ? new Intl.NumberFormat("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        }).format(item?.price / 100)
-                      : " "}
-                  </p>
-                  <p className="item-desc">{item?.description}</p>
-                </div>
-                <div className="menu-img-wrapper">
-                  {item?.imageId && (
-                    <img
-                      className="menu-item-img"
-                      src={ITEM_IMG_CDN_URL + item?.imageId}
-                      alt={item?.name}
-                    />
-                  )}
-                  <button className="add-btn"> ADD +</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
-  );
-};
+
+      {/* categories accordian */}
+      {uniqueCategories.map((item, index)=><RestaurantCategory key={index} data={item} categoryItems={itemsByCategory} menuItems={menuItems} isOpen={index===showIndex ? true : false} setShowIndex={()=> setShowIndex(index)}/>)}
+    </div>
+  )
+}
+
+
+
+
+// const RestaurantMenu = () => {
+//   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
+  
+//   const [restaurant, menuItems] = useRestaurant(resId);
+//    console.log(restaurant, menuItems)
+//   return !restaurant ? (
+//     <MenuShimmer />
+//   ) : (
+//     <div className="mt-20 min-h-screen w-auto">
+//       <div className="flex h-50 justify-center items-center bg-[var(--light-black)] text-[var(--light-white-text)] overflow-y-hidden">
+//         <img
+//           className="w-62 h-42 rounded"
+//           src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
+//           alt={restaurant?.name}
+//         />
+//         <div className="flex flex-col basis-[520px] m-5">
+//           <h2 className="text-5xl max-w-[540px] font-bold">{restaurant?.name}</h2>
+//           <p className="whitespace-nowrap text-inherit opacity-70 text-base max-w-[540px]">{restaurant?.cuisines?.join(", ")}</p>
+//           <div className="flex mt-[18px] justify-between items-center text-xs font-semibold pb-[10px] text-inherit max-w-[340px]">
+//             <div className="flex items-center px-[8px] py-[5px] gap-[5px] bg-[var(--dark-green)] rounded-md" style={
+//             (restaurant?.avgRating) < 4
+//               ? { backgroundColor: "var(--light-red)" }
+//               : (restaurant?.avgRating) === "--"
+//               ? { backgroundColor: "white", color: "black" }
+//               : { color: "white" }
+//           }>
+//             <i className="fa-solid fa-star"></i>
+//               <span>{restaurant?.avgRating}</span>
+//             </div>
+//             <div className="rpx-5">|</div>
+//             <div>{restaurant?.sla?.slaString}</div>
+//             <div className="px-5">|</div>
+//             <div>{restaurant?.costForTwoMessage}</div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* categories accordian */}
+
+//       <div className="flex justify-center">
+//         <div className="mt-7.5 w-[850px]">
+//           <div className="p-5">
+//             <h3 className="menu-title">Recommended</h3>
+//             <p className="mt-2.5 leading-normal text-[rgba(40,44,63,0.45)] text-base">
+//               {menuItems.length} ITEMS
+//             </p>
+//           </div>
+//           <div className="flex justify-center flex-col">
+//             {menuItems.map((item) => (
+//               <div className="flex justify-between p-5 border-b border-[rgba(40,44,63,0.45)]" style={{borderWidth: '0.5px'}} key={item?.id}>
+//                 <div className="lex flex-col self-start overflow-hidden">
+//                   <h3 className="w-auto text-slate-950">{item?.name}</h3>
+//                   <p className="mt-1 text-base font-normal text-slate-600 w-inherit">
+//                     {item?.price > 0
+//                       ? new Intl.NumberFormat("en-IN", {
+//                           style: "currency",
+//                           currency: "INR",
+//                         }).format(item?.price / 100)
+//                       : " "}
+//                   </p>
+//                   <p className="mt-3 leading-snug text-slate-900 text-opacity-45 text-base">{item?.description}</p>
+//                 </div>
+//                 <div className="flex flex-col justify-center items-end w-[300px] overflow-hidden">
+//                   {item?.imageId && (
+//                     <img
+//                       className="h-24 w-24 rounded-md"
+//                       src={ITEM_IMG_CDN_URL + item?.imageId}
+//                       alt={item?.name}
+//                     />
+//                   )}
+//                   <button className="bg-orange-600 px-6 py-2 cursor-pointer outline-none border hover:bg-orange-400 mt-2.5 rounded-md "> ADD +</button>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default RestaurantMenu;
 

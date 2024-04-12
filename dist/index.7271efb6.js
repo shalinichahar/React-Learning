@@ -142,15 +142,16 @@
       this[globalName] = mainExports;
     }
   }
-})({"bgABq":[function(require,module,exports) {
+})({"9wh9R":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
+var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "7fb4cd117271efb6";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -189,6 +190,7 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
+declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -226,9 +228,14 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
     var hostname = getHostname();
     var port = getPort();
-    var protocol = HMR_SECURE || location.protocol == "https:" && !/localhost|127.0.0.1|0.0.0.0/.test(hostname) ? "wss" : "ws";
+    var protocol = HMR_SECURE || location.protocol == "https:" && ![
+        "localhost",
+        "127.0.0.1",
+        "0.0.0.0"
+    ].includes(hostname) ? "wss" : "ws";
     var ws;
-    try {
+    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
+    else try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -298,12 +305,14 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    ws.onerror = function(e) {
-        if (e.message) console.error(e.message);
-    };
-    ws.onclose = function() {
-        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-    };
+    if (ws instanceof WebSocket) {
+        ws.onerror = function(e) {
+            if (e.message) console.error(e.message);
+        };
+        ws.onclose = function() {
+            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+        };
+    }
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -2967,39 +2976,52 @@ var _restaurantMenuJs = require("./components/RestaurantMenu.js");
 var _restaurantMenuJsDefault = parcelHelpers.interopDefault(_restaurantMenuJs);
 var _profileJs = require("./components/Profile.js");
 var _profileJsDefault = parcelHelpers.interopDefault(_profileJs);
+var _shimmerJs = require("./components/Shimmer.js");
+var _shimmerJsDefault = parcelHelpers.interopDefault(_shimmerJs);
+var _userContextJs = require("./utils/UserContext.js");
+var _userContextJsDefault = parcelHelpers.interopDefault(_userContextJs);
+var _authContextJs = require("./utils/AuthContext.js");
+// Chunking
+// Code Splitting
+// Dynamic Bundling
+// On demand Loading
+// Dynamic Import
+// Lazy loading
+const Instamart = /*#__PURE__*/ (0, _react.lazy)(()=>require("f7090f27eebad7de"));
+_c = Instamart;
 const AppLayout = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerJsxDefault.default), {}, void 0, false, {
                 fileName: "src/App.js",
-                lineNumber: 15,
-                columnNumber: 9
+                lineNumber: 27,
+                columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Outlet), {}, void 0, false, {
                 fileName: "src/App.js",
-                lineNumber: 16,
-                columnNumber: 9
+                lineNumber: 28,
+                columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _footerDefault.default), {}, void 0, false, {
                 fileName: "src/App.js",
-                lineNumber: 17,
-                columnNumber: 9
+                lineNumber: 29,
+                columnNumber: 13
             }, undefined)
         ]
     }, void 0, true);
 };
-_c = AppLayout;
+_c1 = AppLayout;
 const appRouter = (0, _reactRouterDom.createBrowserRouter)([
     {
         path: "/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
             fileName: "src/App.js",
-            lineNumber: 22,
+            lineNumber: 34,
             columnNumber: 12
         }, undefined),
         errorElement: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _errorJsDefault.default), {}, void 0, false, {
             fileName: "src/App.js",
-            lineNumber: 23,
+            lineNumber: 35,
             columnNumber: 17
         }, undefined),
         children: [
@@ -3007,7 +3029,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
                 path: "/",
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bodyDefault.default), {}, void 0, false, {
                     fileName: "src/App.js",
-                    lineNumber: 26,
+                    lineNumber: 38,
                     columnNumber: 14
                 }, undefined)
             },
@@ -3015,7 +3037,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
                 path: "/about",
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _aboutDefault.default), {}, void 0, false, {
                     fileName: "src/App.js",
-                    lineNumber: 29,
+                    lineNumber: 41,
                     columnNumber: 14
                 }, undefined),
                 children: [
@@ -3023,7 +3045,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
                         path: "profile",
                         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileJsDefault.default), {}, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 32,
+                            lineNumber: 44,
                             columnNumber: 16
                         }, undefined)
                     }
@@ -3033,7 +3055,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
                 path: "/contact",
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _contactJsDefault.default), {}, void 0, false, {
                     fileName: "src/App.js",
-                    lineNumber: 36,
+                    lineNumber: 48,
                     columnNumber: 14
                 }, undefined)
             },
@@ -3041,7 +3063,26 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
                 path: "/restaurant/:resId",
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantMenuJsDefault.default), {}, void 0, false, {
                     fileName: "src/App.js",
-                    lineNumber: 39,
+                    lineNumber: 51,
+                    columnNumber: 14
+                }, undefined)
+            },
+            {
+                path: "/instamart",
+                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _react.Suspense), {
+                    fallback: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shimmerJsDefault.default), {}, void 0, false, {
+                        fileName: "src/App.js",
+                        lineNumber: 54,
+                        columnNumber: 34
+                    }, void 0),
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Instamart, {}, void 0, false, {
+                        fileName: "src/App.js",
+                        lineNumber: 54,
+                        columnNumber: 47
+                    }, undefined)
+                }, void 0, false, {
+                    fileName: "src/App.js",
+                    lineNumber: 54,
                     columnNumber: 14
                 }, undefined)
             }
@@ -3051,28 +3092,35 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
         path: "/login",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginDefault.default), {}, void 0, false, {
             fileName: "src/App.js",
-            lineNumber: 43,
+            lineNumber: 58,
             columnNumber: 12
         }, undefined)
     }
 ]);
 const root = (0, _clientDefault.default).createRoot(document.getElementById("root"));
-root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.RouterProvider), {
-    router: appRouter
+root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _authContextJs.AuthProvider), {
+    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.RouterProvider), {
+        router: appRouter
+    }, void 0, false, {
+        fileName: "src/App.js",
+        lineNumber: 62,
+        columnNumber: 9
+    }, undefined)
 }, void 0, false, {
     fileName: "src/App.js",
-    lineNumber: 46,
+    lineNumber: 61,
     columnNumber: 13
 }, undefined));
-var _c;
-$RefreshReg$(_c, "AppLayout");
+var _c, _c1;
+$RefreshReg$(_c, "Instamart");
+$RefreshReg$(_c1, "AppLayout");
 
   $parcel$ReactRefreshHelpers$f00f.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/Header.jsx":"knC38","./components/Body":"8yaV8","./components/Footer":"8pPOA","./components/About":"9R1Eu","./components/Contact.js":"cgAOG","./components/Login":"hsmcH","react-router-dom":"9xmpe","./components/Error.js":"kvula","./components/RestaurantMenu.js":"8PuJ6","./components/Profile.js":"h0rtF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/Header.jsx":"knC38","./components/Body":"8yaV8","./components/Footer":"8pPOA","./components/About":"9R1Eu","./components/Contact.js":"cgAOG","./components/Login":"hsmcH","react-router-dom":"9xmpe","./components/Error.js":"kvula","./components/RestaurantMenu.js":"8PuJ6","./components/Profile.js":"h0rtF","./components/Shimmer.js":"g6ZGj","./utils/AuthContext.js":"9MrlH","f7090f27eebad7de":"3IbrY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./utils/UserContext.js":"c5vgB"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27273,136 +27321,157 @@ var _react = require("react");
 var _foodistanLogoJpg = require("../assests/img/foodistan_logo.jpg");
 var _foodistanLogoJpgDefault = parcelHelpers.interopDefault(_foodistanLogoJpg);
 var _reactRouterDom = require("react-router-dom"); // imported Link for client side routing
+var _useOnline = require("../utils/useOnline");
+var _useOnlineDefault = parcelHelpers.interopDefault(_useOnline);
+// import UserContext from "../utils/UserContext";
+var _authContext = require("../utils/AuthContext");
 var _s = $RefreshSig$();
 const loggedInUser = ()=>{
     // API call to check authentication
     return true;
 };
-const Title = ()=>// <h1 id="title" key="h2">
-    //     Food Villa
-    // </h1>
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
+const Title = ()=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
         href: "/",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-            className: "logo",
+            className: "h-28 px-2",
             alt: "logo",
             src: (0, _foodistanLogoJpgDefault.default)
         }, void 0, false, {
             fileName: "src/components/Header.jsx",
-            lineNumber: 14,
+            lineNumber: 13,
             columnNumber: 9
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/Header.jsx",
-        lineNumber: 13,
-        columnNumber: 1
+        lineNumber: 12,
+        columnNumber: 21
     }, undefined);
 _c = Title;
-/*
-const Header = () =>{
-    const [isloggedIn, setIsLoggedIn] = useState(true);
-     
-    return (
-        <div className="header">
-            {Title()}
-            <div className="nav-items">
-                <ul>    
-                    <li><Link to="/">Home</Link></li>                          
-                    <li><Link to="/about">About</Link></li>              
-                    <li><Link to="/contact">Contact</Link></li>
-                    <li><Link to="/cart">Cart</Link></li>
-                </ul>
-            </div>
-            {
-                 isloggedIn ? <button className="login-btn" onClick={()=>setIsLoggedIn(false)}>Logout</button> : <button onClick={() => setIsLoggedIn(true)}>Login</button>
-            }
-            
-        </div>
-    );
-};
-
-
-export default Header; */ // Header component for header section: Logo, Nav Items
+// Header component for header section: Logo, Nav Items
 const Header = ()=>{
     _s();
     // use useState for user logged in or logged out
     const [isLoggedin, setIsLoggedin] = (0, _react.useState)(true);
+    const isOnline = (0, _useOnlineDefault.default)(true);
     const navigate = (0, _reactRouterDom.useNavigate)();
+    const { userName } = (0, _authContext.useAuth)();
+    console.log({
+        userName
+    });
+    // const {loggedInUser} = useContext(UserContext);
+    // console.log(loggedInUser) 
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "header",
+        className: "flex justify-between bg-pink-50 shadow-lg",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Title, {}, void 0, false, {
                 fileName: "src/components/Header.jsx",
-                lineNumber: 49,
+                lineNumber: 32,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "nav-items",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                    className: "flex py-10 font-semibold font-serif text-slate-600",
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                            className: "px-2",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                                 to: "/",
                                 children: "Home"
                             }, void 0, false, {
                                 fileName: "src/components/Header.jsx",
-                                lineNumber: 53,
+                                lineNumber: 36,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/Header.jsx",
-                            lineNumber: 52,
+                            lineNumber: 35,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                            className: "px-2",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                                 to: "/about",
                                 children: "About"
                             }, void 0, false, {
                                 fileName: "src/components/Header.jsx",
-                                lineNumber: 56,
+                                lineNumber: 39,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/Header.jsx",
-                            lineNumber: 55,
+                            lineNumber: 38,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                            className: "px-2",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                                 to: "/contact",
                                 children: "Contact"
                             }, void 0, false, {
                                 fileName: "src/components/Header.jsx",
-                                lineNumber: 60,
+                                lineNumber: 43,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/Header.jsx",
-                            lineNumber: 59,
+                            lineNumber: 42,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                            className: "px-2",
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                to: "/instamart",
+                                children: "Instamart"
+                            }, void 0, false, {
+                                fileName: "src/components/Header.jsx",
+                                lineNumber: 46,
+                                columnNumber: 15
+                            }, undefined)
+                        }, void 0, false, {
+                            fileName: "src/components/Header.jsx",
+                            lineNumber: 45,
+                            columnNumber: 13
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                            className: "px-2",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
                                 className: "fa-solid fa-cart-shopping"
                             }, void 0, false, {
                                 fileName: "src/components/Header.jsx",
-                                lineNumber: 63,
+                                lineNumber: 49,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/Header.jsx",
-                            lineNumber: 62,
+                            lineNumber: 48,
                             columnNumber: 13
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                            children: isLoggedin ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/Header.jsx",
+                    lineNumber: 34,
+                    columnNumber: 11
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/Header.jsx",
+                lineNumber: 33,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                className: "flex py-10",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                        className: "px-2",
+                        children: [
+                            isOnline ? "\uD83D\uDFE2" : "\uD83D\uDD34",
+                            isLoggedin ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                                 className: "logout-btn",
                                 onClick: ()=>setIsLoggedin(false),
-                                children: "Logout"
+                                children: "Logout User:"
                             }, void 0, false, {
                                 fileName: "src/components/Header.jsx",
-                                lineNumber: 67,
+                                lineNumber: 57,
                                 columnNumber: 29
                             }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                                 className: "login-btn",
@@ -27410,35 +27479,45 @@ const Header = ()=>{
                                 children: "Login"
                             }, void 0, false, {
                                 fileName: "src/components/Header.jsx",
-                                lineNumber: 69,
+                                lineNumber: 59,
                                 columnNumber: 29
                             }, undefined)
-                        }, void 0, false, {
-                            fileName: "src/components/Header.jsx",
-                            lineNumber: 65,
-                            columnNumber: 13
-                        }, undefined)
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/Header.jsx",
-                    lineNumber: 51,
-                    columnNumber: 11
-                }, undefined)
-            }, void 0, false, {
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/Header.jsx",
+                        lineNumber: 54,
+                        columnNumber: 7
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                        className: "font-thin  pr-3",
+                        children: [
+                            " ",
+                            userName || "Guest",
+                            " "
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/Header.jsx",
+                        lineNumber: 63,
+                        columnNumber: 13
+                    }, undefined)
+                ]
+            }, void 0, true, {
                 fileName: "src/components/Header.jsx",
-                lineNumber: 50,
-                columnNumber: 9
+                lineNumber: 53,
+                columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/Header.jsx",
-        lineNumber: 48,
+        lineNumber: 31,
         columnNumber: 10
     }, undefined);
 };
-_s(Header, "EjHWUBCneO2NdNDWKYdcLvMEIHI=", false, function() {
+_s(Header, "JfOTOZa3eSgcTMi9F8hmeuw/hrg=", false, function() {
     return [
-        (0, _reactRouterDom.useNavigate)
+        (0, _useOnlineDefault.default),
+        (0, _reactRouterDom.useNavigate),
+        (0, _authContext.useAuth)
     ];
 });
 _c1 = Header;
@@ -27452,7 +27531,7 @@ $RefreshReg$(_c1, "Header");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../assests/img/foodistan_logo.jpg":"9Vufh","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9Vufh":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../assests/img/foodistan_logo.jpg":"9Vufh","react-router-dom":"9xmpe","../utils/useOnline":"74Yls","../utils/AuthContext":"9MrlH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9Vufh":[function(require,module,exports) {
 module.exports = require("f53dc02542410614").getBundleURL("aXMci") + "foodistan_logo.f23c6978.jpg" + "?" + Date.now();
 
 },{"f53dc02542410614":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -27492,7 +27571,7 @@ exports.getOrigin = getOrigin;
 
 },{}],"9xmpe":[function(require,module,exports) {
 /**
- * React Router DOM v6.20.1
+ * React Router DOM v6.22.3
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -27791,6 +27870,21 @@ const _excluded = [
     "preventScrollReset",
     "unstable_viewTransition"
 ];
+// HEY YOU! DON'T TOUCH THIS VARIABLE!
+//
+// It is replaced with the proper version at build time via a babel plugin in
+// the rollup config.
+//
+// Export a global property onto the window for React Router detection by the
+// Core Web Vitals Technology Report.  This way they can configure the `wappalyzer`
+// to detect and properly classify live websites as being built with React Router:
+// https://github.com/HTTPArchive/wappalyzer/blob/main/src/technologies/r.json
+const REACT_ROUTER_VERSION = "6";
+try {
+    window.__reactRouterVersion = REACT_ROUTER_VERSION;
+} catch (e) {
+// no-op
+}
 function createBrowserRouter(routes, opts) {
     return (0, _router.createRouter)({
         basename: opts == null ? void 0 : opts.basename,
@@ -27897,6 +27991,8 @@ FetchersContext.displayName = "Fetchers";
 const startTransitionImpl = _react[START_TRANSITION];
 const FLUSH_SYNC = "flushSync";
 const flushSyncImpl = _reactDom[FLUSH_SYNC];
+const USE_ID = "useId";
+const useIdImpl = _react[USE_ID];
 function startTransitionSafe(cb) {
     if (startTransitionImpl) startTransitionImpl(cb);
     else cb();
@@ -28087,6 +28183,11 @@ class Deferred {
         vtContext.isTransitioning,
         interruption
     ]);
+    _react.useEffect(()=>{
+        (0, _router.UNSAFE_warning)(fallbackElement == null || !router.future.v7_partialHydration, "`<RouterProvider fallbackElement>` is deprecated when using `v7_partialHydration`, use a `HydrateFallback` component instead");
+    // Only log this once on initial mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     let navigator = _react.useMemo(()=>{
         return {
             createHref: router.createHref,
@@ -28134,15 +28235,19 @@ class Deferred {
         basename: basename,
         location: state.location,
         navigationType: state.historyAction,
-        navigator: navigator
-    }, state.initialized ? /*#__PURE__*/ _react.createElement(DataRoutes, {
+        navigator: navigator,
+        future: {
+            v7_relativeSplatPath: router.future.v7_relativeSplatPath
+        }
+    }, state.initialized || router.future.v7_partialHydration ? /*#__PURE__*/ _react.createElement(DataRoutes, {
         routes: router.routes,
+        future: router.future,
         state: state
     }) : fallbackElement))))), null);
 }
 function DataRoutes(_ref3) {
-    let { routes, state } = _ref3;
-    return (0, _reactRouter.UNSAFE_useRoutesImpl)(routes, undefined, state);
+    let { routes, future, state } = _ref3;
+    return (0, _reactRouter.UNSAFE_useRoutesImpl)(routes, undefined, state, future);
 }
 /**
  * A `<Router>` for use in web browsers. Provides the cleanest URLs.
@@ -28174,7 +28279,8 @@ function DataRoutes(_ref3) {
         children: children,
         location: state.location,
         navigationType: state.action,
-        navigator: history
+        navigator: history,
+        future: future
     });
 }
 /**
@@ -28208,7 +28314,8 @@ function DataRoutes(_ref3) {
         children: children,
         location: state.location,
         navigationType: state.action,
-        navigator: history
+        navigator: history,
+        future: future
     });
 }
 /**
@@ -28238,7 +28345,8 @@ function DataRoutes(_ref3) {
         children: children,
         location: state.location,
         navigationType: state.action,
-        navigator: history
+        navigator: history,
+        future: future
     });
 }
 HistoryRouter.displayName = "unstable_HistoryRouter";
@@ -28302,7 +28410,7 @@ Link.displayName = "Link";
     });
     let location = (0, _reactRouter.useLocation)();
     let routerState = _react.useContext((0, _reactRouter.UNSAFE_DataRouterStateContext));
-    let { navigator } = _react.useContext((0, _reactRouter.UNSAFE_NavigationContext));
+    let { navigator, basename } = _react.useContext((0, _reactRouter.UNSAFE_NavigationContext));
     let isTransitioning = routerState != null && // Conditional usage is OK here because the usage of a data router is static
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useViewTransitionState(path) && unstable_viewTransition === true;
@@ -28314,6 +28422,7 @@ Link.displayName = "Link";
         nextLocationPathname = nextLocationPathname ? nextLocationPathname.toLowerCase() : null;
         toPathname = toPathname.toLowerCase();
     }
+    if (nextLocationPathname && basename) nextLocationPathname = (0, _router.stripBasename)(nextLocationPathname, basename) || nextLocationPathname;
     // If the `to` has a trailing slash, look at that exact spot.  Otherwise,
     // we're looking for a slash _after_ what's in `to`.  For example:
     //
@@ -28557,10 +28666,8 @@ function useFormAction(action, _temp2) {
     let path = _extends({}, (0, _reactRouter.useResolvedPath)(action ? action : ".", {
         relative
     }));
-    // Previously we set the default action to ".". The problem with this is that
-    // `useResolvedPath(".")` excludes search params of the resolved URL. This is
-    // the intended behavior of when "." is specifically provided as
-    // the form action, but inconsistent w/ browsers when the action is omitted.
+    // If no action was specified, browsers will persist current search params
+    // when determining the path, so match that behavior
     // https://github.com/remix-run/remix/issues/927
     let location = (0, _reactRouter.useLocation)();
     if (action == null) {
@@ -28603,9 +28710,13 @@ function useFormAction(action, _temp2) {
     !route && (0, _router.UNSAFE_invariant)(false, "useFetcher must be used inside a RouteContext");
     !(routeId != null) && (0, _router.UNSAFE_invariant)(false, 'useFetcher can only be used on routes that contain a unique "id"');
     // Fetcher key handling
-    let [fetcherKey, setFetcherKey] = _react.useState(key || "");
+    // OK to call conditionally to feature detect `useId`
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    let defaultKey = useIdImpl ? useIdImpl() : "";
+    let [fetcherKey, setFetcherKey] = _react.useState(key || defaultKey);
     if (key && key !== fetcherKey) setFetcherKey(key);
-    else if (!fetcherKey) setFetcherKey(getUniqueFetcherId());
+    else if (!fetcherKey) // We will only fall through here when `useId` is not available
+    setFetcherKey(getUniqueFetcherId());
     // Registration/cleanup
     _react.useEffect(()=>{
         router.getFetcher(fetcherKey);
@@ -28884,7 +28995,7 @@ let savedScrollPositions = {};
 
 },{"react":"21dqq","react-dom":"j6uA9","react-router":"dbWyW","@remix-run/router":"5ncDG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dbWyW":[function(require,module,exports) {
 /**
- * React Router v6.20.1
+ * React Router v6.22.3
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -29086,10 +29197,10 @@ function useNavigateUnstable() {
     !useInRouterContext() && (0, _router.UNSAFE_invariant)(false, // router loaded. We can help them understand how to avoid that.
     "useNavigate() may be used only in the context of a <Router> component.");
     let dataRouterContext = _react.useContext(DataRouterContext);
-    let { basename, navigator } = _react.useContext(NavigationContext);
+    let { basename, future, navigator } = _react.useContext(NavigationContext);
     let { matches } = _react.useContext(RouteContext);
     let { pathname: locationPathname } = useLocation();
-    let routePathnamesJson = JSON.stringify((0, _router.UNSAFE_getPathContributingMatches)(matches).map((match)=>match.pathnameBase));
+    let routePathnamesJson = JSON.stringify((0, _router.UNSAFE_getResolveToMatches)(matches, future.v7_relativeSplatPath));
     let activeRef = _react.useRef(false);
     useIsomorphicLayoutEffect(()=>{
         activeRef.current = true;
@@ -29161,9 +29272,10 @@ const OutletContext = /*#__PURE__*/ _react.createContext(null);
  * @see https://reactrouter.com/hooks/use-resolved-path
  */ function useResolvedPath(to, _temp2) {
     let { relative } = _temp2 === void 0 ? {} : _temp2;
+    let { future } = _react.useContext(NavigationContext);
     let { matches } = _react.useContext(RouteContext);
     let { pathname: locationPathname } = useLocation();
-    let routePathnamesJson = JSON.stringify((0, _router.UNSAFE_getPathContributingMatches)(matches).map((match)=>match.pathnameBase));
+    let routePathnamesJson = JSON.stringify((0, _router.UNSAFE_getResolveToMatches)(matches, future.v7_relativeSplatPath));
     return _react.useMemo(()=>(0, _router.resolveTo)(to, JSON.parse(routePathnamesJson), locationPathname, relative === "path"), [
         to,
         routePathnamesJson,
@@ -29182,7 +29294,7 @@ const OutletContext = /*#__PURE__*/ _react.createContext(null);
     return useRoutesImpl(routes, locationArg);
 }
 // Internal implementation with accept optional param for RouterProvider usage
-function useRoutesImpl(routes, locationArg, dataRouterState) {
+function useRoutesImpl(routes, locationArg, dataRouterState, future) {
     !useInRouterContext() && (0, _router.UNSAFE_invariant)(false, // router loaded. We can help them understand how to avoid that.
     "useRoutes() may be used only in the context of a <Router> component.");
     let { navigator } = _react.useContext(NavigationContext);
@@ -29225,12 +29337,31 @@ function useRoutesImpl(routes, locationArg, dataRouterState) {
         location = parsedLocationArg;
     } else location = locationFromContext;
     let pathname = location.pathname || "/";
-    let remainingPathname = parentPathnameBase === "/" ? pathname : pathname.slice(parentPathnameBase.length) || "/";
+    let remainingPathname = pathname;
+    if (parentPathnameBase !== "/") {
+        // Determine the remaining pathname by removing the # of URL segments the
+        // parentPathnameBase has, instead of removing based on character count.
+        // This is because we can't guarantee that incoming/outgoing encodings/
+        // decodings will match exactly.
+        // We decode paths before matching on a per-segment basis with
+        // decodeURIComponent(), but we re-encode pathnames via `new URL()` so they
+        // match what `window.location.pathname` would reflect.  Those don't 100%
+        // align when it comes to encoded URI characters such as % and &.
+        //
+        // So we may end up with:
+        //   pathname:           "/descendant/a%25b/match"
+        //   parentPathnameBase: "/descendant/a%b"
+        //
+        // And the direct substring removal approach won't work :/
+        let parentSegments = parentPathnameBase.replace(/^\//, "").split("/");
+        let segments = pathname.replace(/^\//, "").split("/");
+        remainingPathname = "/" + segments.slice(parentSegments.length).join("/");
+    }
     let matches = (0, _router.matchRoutes)(routes, {
         pathname: remainingPathname
     });
     (0, _router.UNSAFE_warning)(parentRoute || matches != null, 'No routes matched location "' + location.pathname + location.search + location.hash + '" ');
-    (0, _router.UNSAFE_warning)(matches == null || matches[matches.length - 1].route.element !== undefined || matches[matches.length - 1].route.Component !== undefined, 'Matched leaf route at location "' + location.pathname + location.search + location.hash + '" ' + "does not have an element or Component. This means it will render an <Outlet /> with a " + 'null value by default resulting in an "empty" page.');
+    (0, _router.UNSAFE_warning)(matches == null || matches[matches.length - 1].route.element !== undefined || matches[matches.length - 1].route.Component !== undefined || matches[matches.length - 1].route.lazy !== undefined, 'Matched leaf route at location "' + location.pathname + location.search + location.hash + '" ' + "does not have an element or Component. This means it will render an <Outlet /> with a " + 'null value by default resulting in an "empty" page.');
     let renderedMatches = _renderMatches(matches && matches.map((match)=>Object.assign({}, match, {
             params: Object.assign({}, parentParams, match.params),
             pathname: (0, _router.joinPaths)([
@@ -29243,7 +29374,7 @@ function useRoutesImpl(routes, locationArg, dataRouterState) {
                 // Re-encode pathnames that were decoded inside matchRoutes
                 navigator.encodeLocation ? navigator.encodeLocation(match.pathnameBase).pathname : match.pathnameBase
             ])
-        })), parentMatches, dataRouterState);
+        })), parentMatches, dataRouterState, future);
     // When a user passes in a `locationArg`, the associated routes need to
     // be wrapped in a new `LocationContext.Provider` in order for `useLocation`
     // to use the scoped location instead of the global location.
@@ -29323,7 +29454,7 @@ class RenderErrorBoundary extends _react.Component {
         // this because the error provided from the app state may be cleared without
         // the location changing.
         return {
-            error: props.error || state.error,
+            error: props.error !== undefined ? props.error : state.error,
             location: state.location,
             revalidation: props.revalidation || state.revalidation
         };
@@ -29332,7 +29463,7 @@ class RenderErrorBoundary extends _react.Component {
         console.error("React Router caught the following error during render", error, errorInfo);
     }
     render() {
-        return this.state.error ? /*#__PURE__*/ _react.createElement(RouteContext.Provider, {
+        return this.state.error !== undefined ? /*#__PURE__*/ _react.createElement(RouteContext.Provider, {
             value: this.props.routeContext
         }, /*#__PURE__*/ _react.createElement(RouteErrorContext.Provider, {
             value: this.state.error,
@@ -29350,10 +29481,11 @@ function RenderedRoute(_ref) {
         value: routeContext
     }, children);
 }
-function _renderMatches(matches, parentMatches, dataRouterState) {
+function _renderMatches(matches, parentMatches, dataRouterState, future) {
     var _dataRouterState2;
     if (parentMatches === void 0) parentMatches = [];
     if (dataRouterState === void 0) dataRouterState = null;
+    if (future === void 0) future = null;
     if (matches == null) {
         var _dataRouterState;
         if ((_dataRouterState = dataRouterState) != null && _dataRouterState.errors) // Don't bail if we have data router errors so we can render them in the
@@ -29369,15 +29501,55 @@ function _renderMatches(matches, parentMatches, dataRouterState) {
         !(errorIndex >= 0) && (0, _router.UNSAFE_invariant)(false, "Could not find a matching route for errors on route IDs: " + Object.keys(errors).join(","));
         renderedMatches = renderedMatches.slice(0, Math.min(renderedMatches.length, errorIndex + 1));
     }
+    // If we're in a partial hydration mode, detect if we need to render down to
+    // a given HydrateFallback while we load the rest of the hydration data
+    let renderFallback = false;
+    let fallbackIndex = -1;
+    if (dataRouterState && future && future.v7_partialHydration) for(let i = 0; i < renderedMatches.length; i++){
+        let match = renderedMatches[i];
+        // Track the deepest fallback up until the first route without data
+        if (match.route.HydrateFallback || match.route.hydrateFallbackElement) fallbackIndex = i;
+        if (match.route.id) {
+            let { loaderData, errors } = dataRouterState;
+            let needsToRunLoader = match.route.loader && loaderData[match.route.id] === undefined && (!errors || errors[match.route.id] === undefined);
+            if (match.route.lazy || needsToRunLoader) {
+                // We found the first route that's not ready to render (waiting on
+                // lazy, or has a loader that hasn't run yet).  Flag that we need to
+                // render a fallback and render up until the appropriate fallback
+                renderFallback = true;
+                if (fallbackIndex >= 0) renderedMatches = renderedMatches.slice(0, fallbackIndex + 1);
+                else renderedMatches = [
+                    renderedMatches[0]
+                ];
+                break;
+            }
+        }
+    }
     return renderedMatches.reduceRight((outlet, match, index)=>{
-        let error = match.route.id ? errors == null ? void 0 : errors[match.route.id] : null;
-        // Only data routers handle errors
+        // Only data routers handle errors/fallbacks
+        let error;
+        let shouldRenderHydrateFallback = false;
         let errorElement = null;
-        if (dataRouterState) errorElement = match.route.errorElement || defaultErrorElement;
+        let hydrateFallbackElement = null;
+        if (dataRouterState) {
+            error = errors && match.route.id ? errors[match.route.id] : undefined;
+            errorElement = match.route.errorElement || defaultErrorElement;
+            if (renderFallback) {
+                if (fallbackIndex < 0 && index === 0) {
+                    warningOnce("route-fallback", false, "No `HydrateFallback` element provided to render during initial hydration");
+                    shouldRenderHydrateFallback = true;
+                    hydrateFallbackElement = null;
+                } else if (fallbackIndex === index) {
+                    shouldRenderHydrateFallback = true;
+                    hydrateFallbackElement = match.route.hydrateFallbackElement || null;
+                }
+            }
+        }
         let matches = parentMatches.concat(renderedMatches.slice(0, index + 1));
         let getChildren = ()=>{
             let children;
             if (error) children = errorElement;
+            else if (shouldRenderHydrateFallback) children = hydrateFallbackElement;
             else if (match.route.Component) // Note: This is a de-optimized path since React won't re-use the
             // ReactElement since it's identity changes with each new
             // React.createElement call.  We keep this so folks can use
@@ -29529,7 +29701,7 @@ function useCurrentRouteId(hookName) {
     let routeId = useCurrentRouteId(DataRouterStateHook.UseRouteError);
     // If this was a render error, we put it in a RouteError context inside
     // of RenderErrorBoundary
-    if (error) return error;
+    if (error !== undefined) return error;
     // Otherwise look for errors from our data router state
     return (_state$errors = state.errors) == null ? void 0 : _state$errors[routeId];
 }
@@ -29673,6 +29845,11 @@ const startTransitionImpl = _react[START_TRANSITION];
         router,
         setState
     ]);
+    _react.useEffect(()=>{
+        (0, _router.UNSAFE_warning)(fallbackElement == null || !router.future.v7_partialHydration, "`<RouterProvider fallbackElement>` is deprecated when using `v7_partialHydration`, use a `HydrateFallback` component instead");
+    // Only log this once on initial mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     let navigator = _react.useMemo(()=>{
         return {
             createHref: router.createHref,
@@ -29716,15 +29893,19 @@ const startTransitionImpl = _react[START_TRANSITION];
         basename: basename,
         location: state.location,
         navigationType: state.historyAction,
-        navigator: navigator
-    }, state.initialized ? /*#__PURE__*/ _react.createElement(DataRoutes, {
+        navigator: navigator,
+        future: {
+            v7_relativeSplatPath: router.future.v7_relativeSplatPath
+        }
+    }, state.initialized || router.future.v7_partialHydration ? /*#__PURE__*/ _react.createElement(DataRoutes, {
         routes: router.routes,
+        future: router.future,
         state: state
     }) : fallbackElement))), null);
 }
 function DataRoutes(_ref2) {
-    let { routes, state } = _ref2;
-    return useRoutesImpl(routes, undefined, state);
+    let { routes, future, state } = _ref2;
+    return useRoutesImpl(routes, undefined, state, future);
 }
 /**
  * A `<Router>` that stores all entries in memory.
@@ -29759,7 +29940,8 @@ function DataRoutes(_ref2) {
         children: children,
         location: state.location,
         navigationType: state.action,
-        navigator: history
+        navigator: history,
+        future: future
     });
 }
 /**
@@ -29774,13 +29956,14 @@ function DataRoutes(_ref2) {
     let { to, replace, state, relative } = _ref4;
     !useInRouterContext() && (0, _router.UNSAFE_invariant)(false, // the router loaded. We can help them understand how to avoid that.
     "<Navigate> may be used only in the context of a <Router> component.");
-    (0, _router.UNSAFE_warning)(!_react.useContext(NavigationContext).static, "<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.");
+    let { future, static: isStatic } = _react.useContext(NavigationContext);
+    (0, _router.UNSAFE_warning)(!isStatic, "<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.");
     let { matches } = _react.useContext(RouteContext);
     let { pathname: locationPathname } = useLocation();
     let navigate = useNavigate();
     // Resolve the path outside of the effect so that when effects run twice in
     // StrictMode they navigate to the same place
-    let path = (0, _router.resolveTo)(to, (0, _router.UNSAFE_getPathContributingMatches)(matches).map((match)=>match.pathnameBase), locationPathname, relative === "path");
+    let path = (0, _router.resolveTo)(to, (0, _router.UNSAFE_getResolveToMatches)(matches, future.v7_relativeSplatPath), locationPathname, relative === "path");
     let jsonPath = JSON.stringify(path);
     _react.useEffect(()=>navigate(JSON.parse(jsonPath), {
             replace,
@@ -29818,7 +30001,7 @@ function DataRoutes(_ref2) {
  *
  * @see https://reactrouter.com/router-components/router
  */ function Router(_ref5) {
-    let { basename: basenameProp = "/", children = null, location: locationProp, navigationType = (0, _router.Action).Pop, navigator, static: staticProp = false } = _ref5;
+    let { basename: basenameProp = "/", children = null, location: locationProp, navigationType = (0, _router.Action).Pop, navigator, static: staticProp = false, future } = _ref5;
     !!useInRouterContext() && (0, _router.UNSAFE_invariant)(false, "You cannot render a <Router> inside another <Router>. You should never have more than one in your app.");
     // Preserve trailing slashes on basename, so we can let the user control
     // the enforcement of trailing slashes throughout the app
@@ -29826,9 +30009,13 @@ function DataRoutes(_ref2) {
     let navigationContext = _react.useMemo(()=>({
             basename,
             navigator,
-            static: staticProp
+            static: staticProp,
+            future: _extends({
+                v7_relativeSplatPath: false
+            }, future)
         }), [
         basename,
+        future,
         navigator,
         staticProp
     ]);
@@ -30040,6 +30227,13 @@ function mapRouteProperties(route) {
             Component: undefined
         });
     }
+    if (route.HydrateFallback) {
+        if (route.hydrateFallbackElement) (0, _router.UNSAFE_warning)(false, "You should not include both `HydrateFallback` and `hydrateFallbackElement` on your route - `HydrateFallback` will be used.");
+        Object.assign(updates, {
+            hydrateFallbackElement: /*#__PURE__*/ _react.createElement(route.HydrateFallback),
+            HydrateFallback: undefined
+        });
+    }
     if (route.ErrorBoundary) {
         if (route.errorElement) (0, _router.UNSAFE_warning)(false, "You should not include both `ErrorBoundary` and `errorElement` on your route - `ErrorBoundary` will be used.");
         Object.assign(updates, {
@@ -30067,7 +30261,7 @@ function createMemoryRouter(routes, opts) {
 
 },{"react":"21dqq","@remix-run/router":"5ncDG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ncDG":[function(require,module,exports) {
 /**
- * @remix-run/router v1.13.1
+ * @remix-run/router v1.15.3
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -30088,7 +30282,7 @@ parcelHelpers.export(exports, "UNSAFE_DeferredData", ()=>DeferredData);
 parcelHelpers.export(exports, "UNSAFE_ErrorResponseImpl", ()=>ErrorResponseImpl);
 parcelHelpers.export(exports, "UNSAFE_convertRouteMatchToUiMatch", ()=>convertRouteMatchToUiMatch);
 parcelHelpers.export(exports, "UNSAFE_convertRoutesToDataRoutes", ()=>convertRoutesToDataRoutes);
-parcelHelpers.export(exports, "UNSAFE_getPathContributingMatches", ()=>getPathContributingMatches);
+parcelHelpers.export(exports, "UNSAFE_getResolveToMatches", ()=>getResolveToMatches);
 parcelHelpers.export(exports, "UNSAFE_invariant", ()=>invariant);
 parcelHelpers.export(exports, "UNSAFE_warning", ()=>warning);
 parcelHelpers.export(exports, "createBrowserHistory", ()=>createBrowserHistory);
@@ -30456,6 +30650,10 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
         // See https://bugzilla.mozilla.org/show_bug.cgi?id=878297
         let base = window1.location.origin !== "null" ? window1.location.origin : window1.location.href;
         let href = typeof to === "string" ? to : createPath(to);
+        // Treating this as a full URL will strip any trailing spaces so we need to
+        // pre-encode them since they might be part of a matching splat param from
+        // an ancestor route
+        href = href.replace(/ $/, "%20");
         invariant(base, "No window.location.(origin|href) available to create URL for href: " + href);
         return new URL(href, base);
     }
@@ -30557,13 +30755,16 @@ function convertRoutesToDataRoutes(routes, mapRouteProperties, parentPath, manif
     let branches = flattenRoutes(routes);
     rankRouteBranches(branches);
     let matches = null;
-    for(let i = 0; matches == null && i < branches.length; ++i)matches = matchRouteBranch(branches[i], // Incoming pathnames are generally encoded from either window.location
-    // or from router.navigate, but we want to match against the unencoded
-    // paths in the route definitions.  Memory router locations won't be
-    // encoded here but there also shouldn't be anything to decode so this
-    // should be a safe operation.  This avoids needing matchRoutes to be
-    // history-aware.
-    safelyDecodeURI(pathname));
+    for(let i = 0; matches == null && i < branches.length; ++i){
+        // Incoming pathnames are generally encoded from either window.location
+        // or from router.navigate, but we want to match against the unencoded
+        // paths in the route definitions.  Memory router locations won't be
+        // encoded here but there also shouldn't be anything to decode so this
+        // should be a safe operation.  This avoids needing matchRoutes to be
+        // history-aware.
+        let decoded = decodePath(pathname);
+        matches = matchRouteBranch(branches[i], decoded);
+    }
     return matches;
 }
 function convertRouteMatchToUiMatch(match, loaderData) {
@@ -30673,7 +30874,7 @@ function rankRouteBranches(branches) {
     branches.sort((a, b)=>a.score !== b.score ? b.score - a.score // Higher score first
          : compareIndexes(a.routesMeta.map((meta)=>meta.childrenIndex), b.routesMeta.map((meta)=>meta.childrenIndex)));
 }
-const paramRe = /^:\w+$/;
+const paramRe = /^:[\w-]+$/;
 const dynamicSegmentValue = 3;
 const indexRouteValue = 2;
 const emptySegmentValue = 1;
@@ -30756,7 +30957,7 @@ function matchRouteBranch(branch, pathname) {
             // Apply the splat
             return stringify(params[star]);
         }
-        const keyMatch = segment.match(/^:(\w+)(\??)$/);
+        const keyMatch = segment.match(/^:([\w-]+)(\??)$/);
         if (keyMatch) {
             const [, key, optional] = keyMatch;
             let param = params[key];
@@ -30796,7 +30997,7 @@ function matchRouteBranch(branch, pathname) {
         }
         const value = captureGroups[index];
         if (isOptional && !value) memo[paramName] = undefined;
-        else memo[paramName] = safelyDecodeURIComponent(value || "", paramName);
+        else memo[paramName] = (value || "").replace(/%2F/g, "/");
         return memo;
     }, {});
     return {
@@ -30814,7 +31015,7 @@ function compilePath(path, caseSensitive, end) {
     let regexpSource = "^" + path.replace(/\/*\*?$/, "") // Ignore trailing / and /*, we'll handle it below
     .replace(/^\/*/, "/") // Make sure it has a leading /
     .replace(/[\\.*+^${}|()[\]]/g, "\\$&") // Escape special regex chars
-    .replace(/\/:(\w+)(\?)?/g, (_, paramName, isOptional)=>{
+    .replace(/\/:([\w-]+)(\?)?/g, (_, paramName, isOptional)=>{
         params.push({
             paramName,
             isOptional: isOptional != null
@@ -30843,19 +31044,11 @@ function compilePath(path, caseSensitive, end) {
         params
     ];
 }
-function safelyDecodeURI(value) {
+function decodePath(value) {
     try {
-        return decodeURI(value);
+        return value.split("/").map((v)=>decodeURIComponent(v).replace(/\//g, "%2F")).join("/");
     } catch (error) {
         warning(false, 'The URL path "' + value + '" could not be decoded because it is is a ' + "malformed URL segment. This is probably due to a bad percent " + ("encoding (" + error + ")."));
-        return value;
-    }
-}
-function safelyDecodeURIComponent(value, paramName) {
-    try {
-        return decodeURIComponent(value);
-    } catch (error) {
-        warning(false, 'The value for the URL param "' + paramName + '" will not be decoded because' + (' the string "' + value + '" is a malformed URL segment. This is probably') + (" due to a bad percent encoding (" + error + ")."));
         return value;
     }
 }
@@ -30925,6 +31118,16 @@ function getInvalidPathError(char, field, dest, path) {
  */ function getPathContributingMatches(matches) {
     return matches.filter((match, index)=>index === 0 || match.route.path && match.route.path.length > 0);
 }
+// Return the array of pathnames for the current route matches - used to
+// generate the routePathnames input for resolveTo()
+function getResolveToMatches(matches, v7_relativeSplatPath) {
+    let pathMatches = getPathContributingMatches(matches);
+    // When v7_relativeSplatPath is enabled, use the full pathname for the leaf
+    // match so we include splat values for "." links.  See:
+    // https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329
+    if (v7_relativeSplatPath) return pathMatches.map((match, idx)=>idx === matches.length - 1 ? match.pathname : match.pathnameBase);
+    return pathMatches.map((match)=>match.pathnameBase);
+}
 /**
  * @private
  */ function resolveTo(toArg, routePathnames, locationPathname, isPathRelative) {
@@ -30950,34 +31153,20 @@ function getInvalidPathError(char, field, dest, path) {
     // hash string, in which case we should assume that the navigation is relative
     // to the current location's pathname and *not* the route pathname.
     if (toPathname == null) from = locationPathname;
-    else if (isPathRelative) {
-        let fromSegments = routePathnames[routePathnames.length - 1].replace(/^\//, "").split("/");
-        if (toPathname.startsWith("..")) {
-            let toSegments = toPathname.split("/");
-            // With relative="path", each leading .. segment means "go up one URL segment"
-            while(toSegments[0] === ".."){
-                toSegments.shift();
-                fromSegments.pop();
-            }
-            to.pathname = toSegments.join("/");
-        }
-        from = "/" + fromSegments.join("/");
-    } else {
+    else {
         let routePathnameIndex = routePathnames.length - 1;
-        if (toPathname.startsWith("..")) {
+        // With relative="route" (the default), each leading .. segment means
+        // "go up one route" instead of "go up one URL segment".  This is a key
+        // difference from how <a href> works and a major reason we call this a
+        // "to" value instead of a "href".
+        if (!isPathRelative && toPathname.startsWith("..")) {
             let toSegments = toPathname.split("/");
-            // With relative="route" (the default), each leading .. segment means
-            // "go up one route" instead of "go up one URL segment".  This is a key
-            // difference from how <a href> works and a major reason we call this a
-            // "to" value instead of a "href".
             while(toSegments[0] === ".."){
                 toSegments.shift();
                 routePathnameIndex -= 1;
             }
             to.pathname = toSegments.join("/");
         }
-        // If there are more ".." segments than parent routes, resolve relative to
-        // the root / URL.
         from = routePathnameIndex >= 0 ? routePathnames[routePathnameIndex] : "/";
     }
     let path = resolvePath(to, from);
@@ -31289,7 +31478,9 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
     let future = _extends({
         v7_fetcherPersist: false,
         v7_normalizeFormMethod: false,
-        v7_prependBasename: false
+        v7_partialHydration: false,
+        v7_prependBasename: false,
+        v7_relativeSplatPath: false
     }, init.future);
     // Cleanup function for history
     let unlistenHistory = null;
@@ -31322,10 +31513,36 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
             [route.id]: error
         };
     }
-    let initialized = // All initialMatches need to be loaded before we're ready.  If we have lazy
+    let initialized;
+    let hasLazyRoutes = initialMatches.some((m)=>m.route.lazy);
+    let hasLoaders = initialMatches.some((m)=>m.route.loader);
+    if (hasLazyRoutes) // All initialMatches need to be loaded before we're ready.  If we have lazy
     // functions around still then we'll need to run them in initialize()
-    !initialMatches.some((m)=>m.route.lazy) && // And we have to either have no loaders or have been provided hydrationData
-    (!initialMatches.some((m)=>m.route.loader) || init.hydrationData != null);
+    initialized = false;
+    else if (!hasLoaders) // If we've got no loaders to run, then we're good to go
+    initialized = true;
+    else if (future.v7_partialHydration) {
+        // If partial hydration is enabled, we're initialized so long as we were
+        // provided with hydrationData for every route with a loader, and no loaders
+        // were marked for explicit hydration
+        let loaderData = init.hydrationData ? init.hydrationData.loaderData : null;
+        let errors = init.hydrationData ? init.hydrationData.errors : null;
+        let isRouteInitialized = (m)=>{
+            // No loader, nothing to initialize
+            if (!m.route.loader) return true;
+            // Explicitly opting-in to running on hydration
+            if (m.route.loader.hydrate === true) return false;
+            // Otherwise, initialized if hydrated with data or an error
+            return loaderData && loaderData[m.route.id] !== undefined || errors && errors[m.route.id] !== undefined;
+        };
+        // If errors exist, don't consider routes below the boundary
+        if (errors) {
+            let idx = initialMatches.findIndex((m)=>errors[m.route.id] !== undefined);
+            initialized = initialMatches.slice(0, idx + 1).every(isRouteInitialized);
+        } else initialized = initialMatches.every(isRouteInitialized);
+    } else // Without partial hydration - we're initialized if we were provided any
+    // hydrationData - which is expected to be complete
+    initialized = init.hydrationData != null;
     let router;
     let state = {
         historyAction: init.history.action,
@@ -31464,7 +31681,9 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         // in the normal navigation flow.  For SSR it's expected that lazy modules are
         // resolved prior to router creation since we can't go into a fallbackElement
         // UI for SSR'd apps
-        if (!state.initialized) startNavigation(Action.Pop, state.location);
+        if (!state.initialized) startNavigation(Action.Pop, state.location, {
+            initialHydration: true
+        });
         return router;
     }
     // Clean up a router and it's side effects
@@ -31618,7 +31837,7 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
             init.history.go(to);
             return;
         }
-        let normalizedPath = normalizeTo(state.location, state.matches, basename, future.v7_prependBasename, to, opts == null ? void 0 : opts.fromRouteId, opts == null ? void 0 : opts.relative);
+        let normalizedPath = normalizeTo(state.location, state.matches, basename, future.v7_prependBasename, to, future.v7_relativeSplatPath, opts == null ? void 0 : opts.fromRouteId, opts == null ? void 0 : opts.relative);
         let { path, submission, error } = normalizeNavigateOptions(future.v7_normalizeFormMethod, false, normalizedPath, opts);
         let currentLocation = state.location;
         let nextLocation = createLocation(state.location, path, opts && opts.state);
@@ -31789,7 +32008,7 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
             });
         }
         // Call loaders
-        let { shortCircuited, loaderData, errors } = await handleLoaders(request, location, matches, loadingNavigation, opts && opts.submission, opts && opts.fetcherSubmission, opts && opts.replace, flushSync, pendingActionData, pendingError);
+        let { shortCircuited, loaderData, errors } = await handleLoaders(request, location, matches, loadingNavigation, opts && opts.submission, opts && opts.fetcherSubmission, opts && opts.replace, opts && opts.initialHydration === true, flushSync, pendingActionData, pendingError);
         if (shortCircuited) return;
         // Clean up now that the action/loaders have completed.  Don't clean up if
         // we short circuited because pendingNavigationController will have already
@@ -31828,7 +32047,7 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
             })
         };
         else {
-            result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, mapRouteProperties, basename);
+            result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath);
             if (request.signal.aborted) return {
                 shortCircuited: true
             };
@@ -31876,14 +32095,14 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
     }
     // Call all applicable loaders for the given matches, handling redirects,
     // errors, etc.
-    async function handleLoaders(request, location, matches, overrideNavigation, submission, fetcherSubmission, replace, flushSync, pendingActionData, pendingError) {
+    async function handleLoaders(request, location, matches, overrideNavigation, submission, fetcherSubmission, replace, initialHydration, flushSync, pendingActionData, pendingError) {
         // Figure out the right navigation we want to use for data loading
         let loadingNavigation = overrideNavigation || getLoadingNavigation(location, submission);
         // If this was a redirect from an action we don't have a "submission" but
         // we have it on the loading navigation so use that if available
         let activeSubmission = submission || fetcherSubmission || getSubmissionFromNavigation(loadingNavigation);
         let routesToUse = inFlightDataRoutes || dataRoutes;
-        let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, activeSubmission, location, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, deletedFetchers, fetchLoadMatches, fetchRedirectIds, routesToUse, basename, pendingActionData, pendingError);
+        let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, activeSubmission, location, future.v7_partialHydration && initialHydration === true, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, deletedFetchers, fetchLoadMatches, fetchRedirectIds, routesToUse, basename, pendingActionData, pendingError);
         // Cancel pending deferreds for no-longer-matched routes or routes we're
         // about to reload.  Note that if this is an action reload we would have
         // already cancelled all pending deferreds so this would be a no-op
@@ -31912,7 +32131,9 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         // state.  If not, we need to switch to our loading state and load data,
         // preserving any new action data or existing action data (in the case of
         // a revalidation interrupting an actionReload)
-        if (!isUninterruptedRevalidation) {
+        // If we have partialHydration enabled, then don't update the state for the
+        // initial data load since it's not a "navigation"
+        if (!isUninterruptedRevalidation && (!future.v7_partialHydration || !initialHydration)) {
             revalidatingFetchers.forEach((rf)=>{
                 let fetcher = state.fetchers.get(rf.key);
                 let revalidatingFetcher = getLoadingFetcher(undefined, fetcher ? fetcher.data : undefined);
@@ -31978,6 +32199,16 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
                 if (aborted || deferredData.done) activeDeferreds.delete(routeId);
             });
         });
+        // During partial hydration, preserve SSR errors for routes that don't re-run
+        if (future.v7_partialHydration && initialHydration && state.errors) Object.entries(state.errors).filter((_ref2)=>{
+            let [id] = _ref2;
+            return !matchesToLoad.some((m)=>m.route.id === id);
+        }).forEach((_ref3)=>{
+            let [routeId, error] = _ref3;
+            errors = Object.assign(errors || {}, {
+                [routeId]: error
+            });
+        });
         let updatedFetchers = markFetchRedirectsDone();
         let didAbortFetchLoads = abortStaleFetchLoads(pendingNavigationLoadId);
         let shouldUpdateFetchers = updatedFetchers || didAbortFetchLoads || revalidatingFetchers.length > 0;
@@ -31994,7 +32225,7 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         if (fetchControllers.has(key)) abortFetcher(key);
         let flushSync = (opts && opts.unstable_flushSync) === true;
         let routesToUse = inFlightDataRoutes || dataRoutes;
-        let normalizedPath = normalizeTo(state.location, state.matches, basename, future.v7_prependBasename, href, routeId, opts == null ? void 0 : opts.relative);
+        let normalizedPath = normalizeTo(state.location, state.matches, basename, future.v7_prependBasename, href, future.v7_relativeSplatPath, routeId, opts == null ? void 0 : opts.relative);
         let matches = matchRoutes(routesToUse, normalizedPath, basename);
         if (!matches) {
             setFetcherError(key, routeId, getInternalRouterError(404, {
@@ -32051,38 +32282,44 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         let fetchRequest = createClientSideRequest(init.history, path, abortController.signal, submission);
         fetchControllers.set(key, abortController);
         let originatingLoadId = incrementingLoadId;
-        let actionResult = await callLoaderOrAction("action", fetchRequest, match, requestMatches, manifest, mapRouteProperties, basename);
+        let actionResult = await callLoaderOrAction("action", fetchRequest, match, requestMatches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath);
         if (fetchRequest.signal.aborted) {
             // We can delete this so long as we weren't aborted by our own fetcher
             // re-submit which would have put _new_ controller is in fetchControllers
             if (fetchControllers.get(key) === abortController) fetchControllers.delete(key);
             return;
         }
-        if (deletedFetchers.has(key)) {
-            updateFetcherState(key, getDoneFetcher(undefined));
-            return;
-        }
-        if (isRedirectResult(actionResult)) {
-            fetchControllers.delete(key);
-            if (pendingNavigationLoadId > originatingLoadId) {
-                // A new navigation was kicked off after our action started, so that
-                // should take precedence over this redirect navigation.  We already
-                // set isRevalidationRequired so all loaders for the new route should
-                // fire unless opted out via shouldRevalidate
+        // When using v7_fetcherPersist, we don't want errors bubbling up to the UI
+        // or redirects processed for unmounted fetchers so we just revert them to
+        // idle
+        if (future.v7_fetcherPersist && deletedFetchers.has(key)) {
+            if (isRedirectResult(actionResult) || isErrorResult(actionResult)) {
                 updateFetcherState(key, getDoneFetcher(undefined));
                 return;
-            } else {
-                fetchRedirectIds.add(key);
-                updateFetcherState(key, getLoadingFetcher(submission));
-                return startRedirectNavigation(state, actionResult, {
-                    fetcherSubmission: submission
-                });
             }
-        }
-        // Process any non-redirect errors thrown
-        if (isErrorResult(actionResult)) {
-            setFetcherError(key, routeId, actionResult.error);
-            return;
+        } else {
+            if (isRedirectResult(actionResult)) {
+                fetchControllers.delete(key);
+                if (pendingNavigationLoadId > originatingLoadId) {
+                    // A new navigation was kicked off after our action started, so that
+                    // should take precedence over this redirect navigation.  We already
+                    // set isRevalidationRequired so all loaders for the new route should
+                    // fire unless opted out via shouldRevalidate
+                    updateFetcherState(key, getDoneFetcher(undefined));
+                    return;
+                } else {
+                    fetchRedirectIds.add(key);
+                    updateFetcherState(key, getLoadingFetcher(submission));
+                    return startRedirectNavigation(state, actionResult, {
+                        fetcherSubmission: submission
+                    });
+                }
+            }
+            // Process any non-redirect errors thrown
+            if (isErrorResult(actionResult)) {
+                setFetcherError(key, routeId, actionResult.error);
+                return;
+            }
         }
         if (isDeferredResult(actionResult)) throw getInternalRouterError(400, {
             type: "defer-action"
@@ -32098,7 +32335,7 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         fetchReloadIds.set(key, loadId);
         let loadFetcher = getLoadingFetcher(submission, actionResult.data);
         state.fetchers.set(key, loadFetcher);
-        let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, submission, nextLocation, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, deletedFetchers, fetchLoadMatches, fetchRedirectIds, routesToUse, basename, {
+        let [matchesToLoad, revalidatingFetchers] = getMatchesToLoad(init.history, state, matches, submission, nextLocation, false, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, deletedFetchers, fetchLoadMatches, fetchRedirectIds, routesToUse, basename, {
             [match.route.id]: actionResult.data
         }, undefined // No need to send through errors since we short circuit above
         );
@@ -32179,7 +32416,7 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         let fetchRequest = createClientSideRequest(init.history, path, abortController.signal);
         fetchControllers.set(key, abortController);
         let originatingLoadId = incrementingLoadId;
-        let result = await callLoaderOrAction("loader", fetchRequest, match, matches, manifest, mapRouteProperties, basename);
+        let result = await callLoaderOrAction("loader", fetchRequest, match, matches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath);
         // Deferred isn't supported for fetcher loads, await everything and treat it
         // as a normal load.  resolveDeferredData will return undefined if this
         // fetcher gets aborted, so we just leave result untouched and short circuit
@@ -32189,6 +32426,8 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         // re-load which would have put _new_ controller is in fetchControllers
         if (fetchControllers.get(key) === abortController) fetchControllers.delete(key);
         if (fetchRequest.signal.aborted) return;
+        // We don't want errors bubbling up or redirects followed for unmounted
+        // fetchers, so short circuit here if it was removed from the UI
         if (deletedFetchers.has(key)) {
             updateFetcherState(key, getDoneFetcher(undefined));
             return;
@@ -32293,9 +32532,9 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         // then slice off the results into separate arrays so we can handle them
         // accordingly
         let results = await Promise.all([
-            ...matchesToLoad.map((match)=>callLoaderOrAction("loader", request, match, matches, manifest, mapRouteProperties, basename)),
+            ...matchesToLoad.map((match)=>callLoaderOrAction("loader", request, match, matches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath)),
             ...fetchersToLoad.map((f)=>{
-                if (f.matches && f.match && f.controller) return callLoaderOrAction("loader", createClientSideRequest(init.history, f.path, f.controller.signal), f.match, f.matches, manifest, mapRouteProperties, basename);
+                if (f.matches && f.match && f.controller) return callLoaderOrAction("loader", createClientSideRequest(init.history, f.path, f.controller.signal), f.match, f.matches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath);
                 else {
                     let error = {
                         type: ResultType.error,
@@ -32451,8 +32690,8 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
             blockers
         });
     }
-    function shouldBlockNavigation(_ref2) {
-        let { currentLocation, nextLocation, historyAction } = _ref2;
+    function shouldBlockNavigation(_ref4) {
+        let { currentLocation, nextLocation, historyAction } = _ref4;
         if (blockerFunctions.size === 0) return;
         // We ony support a single active blocker at the moment since we don't have
         // any compelling use cases for multi-blocker yet
@@ -32536,6 +32775,9 @@ const TRANSITIONS_STORAGE_KEY = "remix-router-transitions";
         get basename () {
             return basename;
         },
+        get future () {
+            return future;
+        },
         get state () {
             return state;
         },
@@ -32586,6 +32828,11 @@ function createStaticHandler(routes, opts) {
                 hasErrorBoundary: detectErrorBoundary(route)
             });
     } else mapRouteProperties = defaultMapRouteProperties;
+    // Config driven behavior flags
+    let future = _extends({
+        v7_relativeSplatPath: false,
+        v7_throwAbortReason: false
+    }, opts ? opts.future : null);
     let dataRoutes = convertRoutesToDataRoutes(routes, mapRouteProperties, undefined, manifest);
     /**
    * The query() method is intended for document requests, in which we want to
@@ -32760,15 +33007,12 @@ function createStaticHandler(routes, opts) {
                 error
             };
         } else {
-            result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, mapRouteProperties, basename, {
+            result = await callLoaderOrAction("action", request, actionMatch, matches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath, {
                 isStaticRequest: true,
                 isRouteRequest,
                 requestContext
             });
-            if (request.signal.aborted) {
-                let method = isRouteRequest ? "queryRoute" : "query";
-                throw new Error(method + "() call aborted: " + request.method + " " + request.url);
-            }
+            if (request.signal.aborted) throwStaticHandlerAbortedError(request, isRouteRequest, future);
         }
         if (isRedirectResult(result)) // Uhhhh - this should never happen, we should always throw these from
         // callLoaderOrAction, but the type narrowing here keeps TS happy and we
@@ -32870,16 +33114,13 @@ function createStaticHandler(routes, opts) {
             activeDeferreds: null
         };
         let results = await Promise.all([
-            ...matchesToLoad.map((match)=>callLoaderOrAction("loader", request, match, matches, manifest, mapRouteProperties, basename, {
+            ...matchesToLoad.map((match)=>callLoaderOrAction("loader", request, match, matches, manifest, mapRouteProperties, basename, future.v7_relativeSplatPath, {
                     isStaticRequest: true,
                     isRouteRequest,
                     requestContext
                 }))
         ]);
-        if (request.signal.aborted) {
-            let method = isRouteRequest ? "queryRoute" : "query";
-            throw new Error(method + "() call aborted: " + request.method + " " + request.url);
-        }
+        if (request.signal.aborted) throwStaticHandlerAbortedError(request, isRouteRequest, future);
         // Process and commit output from loaders
         let activeDeferreds = new Map();
         let context = processRouteLoaderData(matches, matchesToLoad, results, pendingActionError, activeDeferreds);
@@ -32908,17 +33149,22 @@ function createStaticHandler(routes, opts) {
  * provide an updated StaticHandlerContext suitable for a second SSR render
  */ function getStaticContextFromError(routes, context, error) {
     let newContext = _extends({}, context, {
-        statusCode: 500,
+        statusCode: isRouteErrorResponse(error) ? error.status : 500,
         errors: {
             [context._deepestRenderedBoundaryId || routes[0].id]: error
         }
     });
     return newContext;
 }
+function throwStaticHandlerAbortedError(request, isRouteRequest, future) {
+    if (future.v7_throwAbortReason && request.signal.reason !== undefined) throw request.signal.reason;
+    let method = isRouteRequest ? "queryRoute" : "query";
+    throw new Error(method + "() call aborted: " + request.method + " " + request.url);
+}
 function isSubmissionNavigation(opts) {
     return opts != null && ("formData" in opts && opts.formData != null || "body" in opts && opts.body !== undefined);
 }
-function normalizeTo(location, matches, basename, prependBasename, to, fromRouteId, relative) {
+function normalizeTo(location, matches, basename, prependBasename, to, v7_relativeSplatPath, fromRouteId, relative) {
     let contextualMatches;
     let activeRouteMatch;
     if (fromRouteId) {
@@ -32937,7 +33183,7 @@ function normalizeTo(location, matches, basename, prependBasename, to, fromRoute
         activeRouteMatch = matches[matches.length - 1];
     }
     // Resolve the relative path
-    let path = resolveTo(to ? to : ".", getPathContributingMatches(contextualMatches).map((m)=>m.pathnameBase), stripBasename(location.pathname, basename) || location.pathname, relative === "path");
+    let path = resolveTo(to ? to : ".", getResolveToMatches(contextualMatches, v7_relativeSplatPath), stripBasename(location.pathname, basename) || location.pathname, relative === "path");
     // When `to` is not specified we inherit search/hash from the current
     // location, unlike when to="." and we just inherit the path.
     // See https://github.com/remix-run/remix/issues/927
@@ -32985,8 +33231,8 @@ function normalizeNavigateOptions(normalizeFormMethod, isFetcher, path, opts) {
             // text only support POST/PUT/PATCH/DELETE submissions
             if (!isMutationMethod(formMethod)) return getInvalidBodyError();
             let text = typeof opts.body === "string" ? opts.body : opts.body instanceof FormData || opts.body instanceof URLSearchParams ? // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#plain-text-form-data
-            Array.from(opts.body.entries()).reduce((acc, _ref3)=>{
-                let [name, value] = _ref3;
+            Array.from(opts.body.entries()).reduce((acc, _ref5)=>{
+                let [name, value] = _ref5;
                 return "" + acc + name + "=" + value + "\n";
             }, "") : String(opts.body);
             return {
@@ -33076,7 +33322,7 @@ function getLoaderMatchesUntilBoundary(matches, boundaryId) {
     }
     return boundaryMatches;
 }
-function getMatchesToLoad(history, state, matches, submission, location, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, deletedFetchers, fetchLoadMatches, fetchRedirectIds, routesToUse, basename, pendingActionData, pendingError) {
+function getMatchesToLoad(history, state, matches, submission, location, isInitialLoad, isRevalidationRequired, cancelledDeferredRoutes, cancelledFetcherLoads, deletedFetchers, fetchLoadMatches, fetchRedirectIds, routesToUse, basename, pendingActionData, pendingError) {
     let actionResult = pendingError ? Object.values(pendingError)[0] : pendingActionData ? Object.values(pendingActionData)[0] : undefined;
     let currentUrl = history.createURL(state.location);
     let nextUrl = history.createURL(location);
@@ -33084,9 +33330,15 @@ function getMatchesToLoad(history, state, matches, submission, location, isReval
     let boundaryId = pendingError ? Object.keys(pendingError)[0] : undefined;
     let boundaryMatches = getLoaderMatchesUntilBoundary(matches, boundaryId);
     let navigationMatches = boundaryMatches.filter((match, index)=>{
-        if (match.route.lazy) // We haven't loaded this route yet so we don't know if it's got a loader!
+        let { route } = match;
+        if (route.lazy) // We haven't loaded this route yet so we don't know if it's got a loader!
         return true;
-        if (match.route.loader == null) return false;
+        if (route.loader == null) return false;
+        if (isInitialLoad) {
+            if (route.loader.hydrate) return true;
+            return state.loaderData[route.id] === undefined && // Don't re-run if the loader ran and threw an error
+            (!state.errors || state.errors[route.id] === undefined);
+        }
         // Always call the loader on new route instances and pending defer cancellations
         if (isNewLoader(state.loaderData, state.matches[index], match) || cancelledDeferredRoutes.some((id)=>id === match.route.id)) return true;
         // This is the default implementation for when we revalidate.  If the route
@@ -33111,8 +33363,12 @@ function getMatchesToLoad(history, state, matches, submission, location, isReval
     // Pick fetcher.loads that need to be revalidated
     let revalidatingFetchers = [];
     fetchLoadMatches.forEach((f, key)=>{
-        // Don't revalidate if fetcher won't be present in the subsequent render
-        if (!matches.some((m)=>m.route.id === f.routeId) || deletedFetchers.has(key)) return;
+        // Don't revalidate:
+        //  - on initial load (shouldn't be any fetchers then anyway)
+        //  - if fetcher won't be present in the subsequent render
+        //    - no longer matches the URL (v7_fetcherPersist=false)
+        //    - was unmounted but persisted due to v7_fetcherPersist=true
+        if (isInitialLoad || !matches.some((m)=>m.route.id === f.routeId) || deletedFetchers.has(key)) return;
         let fetcherMatches = matchRoutes(routesToUse, f.path, basename);
         // If the fetcher path no longer matches, push it in with null matches so
         // we can trigger a 404 in callLoadersAndMaybeResolveData.  Note this is
@@ -33232,7 +33488,7 @@ function shouldRevalidateLoader(loaderMatch, arg) {
         lazy: undefined
     }));
 }
-async function callLoaderOrAction(type, request, match, matches, manifest, mapRouteProperties, basename, opts) {
+async function callLoaderOrAction(type, request, match, matches, manifest, mapRouteProperties, basename, v7_relativeSplatPath, opts) {
     if (opts === void 0) opts = {};
     let resultType;
     let result;
@@ -33313,7 +33569,7 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
             let location = result.headers.get("Location");
             invariant(location, "Redirects returned/thrown from loaders/actions must have a Location header");
             // Support relative routing in internal redirects
-            if (!ABSOLUTE_URL_REGEX.test(location)) location = normalizeTo(new URL(request.url), matches.slice(0, matches.indexOf(match) + 1), basename, true, location);
+            if (!ABSOLUTE_URL_REGEX.test(location)) location = normalizeTo(new URL(request.url), matches.slice(0, matches.indexOf(match) + 1), basename, true, location, v7_relativeSplatPath);
             else if (!opts.isStaticRequest) {
                 // Strip off the protocol+origin for same-origin + same-basename absolute
                 // redirects. If this is a static request, we can let it go back to the
@@ -33350,11 +33606,20 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
             throw queryRouteResponse;
         }
         let data;
-        let contentType = result.headers.get("Content-Type");
-        // Check between word boundaries instead of startsWith() due to the last
-        // paragraph of https://httpwg.org/specs/rfc9110.html#field.content-type
-        if (contentType && /\bapplication\/json\b/.test(contentType)) data = await result.json();
-        else data = await result.text();
+        try {
+            let contentType = result.headers.get("Content-Type");
+            // Check between word boundaries instead of startsWith() due to the last
+            // paragraph of https://httpwg.org/specs/rfc9110.html#field.content-type
+            if (contentType && /\bapplication\/json\b/.test(contentType)) {
+                if (result.body == null) data = null;
+                else data = await result.json();
+            } else data = await result.text();
+        } catch (e) {
+            return {
+                type: ResultType.error,
+                error: e
+            };
+        }
         if (resultType === ResultType.error) return {
             type: resultType,
             error: new ErrorResponseImpl(status, result.statusText, data),
@@ -33866,7 +34131,45 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"km3Ru":[function(require,module,exports) {
+},{}],"74Yls":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$03b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$03b2.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _s = $RefreshSig$();
+const useOnline = ()=>{
+    _s();
+    const [isOnline, setIsOnline] = (0, _react.useState)(true);
+    (0, _react.useEffect)(()=>{
+        const handleOnline = ()=>{
+            setIsOnline(true);
+        };
+        const handleOffline = ()=>{
+            setIsOnline(false);
+        };
+        window.addEventListener("online", handleOnline);
+        window.addEventListener("offline", handleOffline);
+        return ()=>{
+            window.removeEventListener("online", handleOnline);
+            window.removeEventListener("offline", handleOffline);
+        };
+    }, []);
+    return isOnline;
+};
+_s(useOnline, "mRBquyBAMh60D2Q5WI/A8/L/7j4=");
+exports.default = useOnline;
+
+  $parcel$ReactRefreshHelpers$03b2.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"km3Ru":[function(require,module,exports) {
 "use strict";
 var Refresh = require("7422ead32dcc1e6b");
 function debounce(func, delay) {
@@ -34004,7 +34307,53 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}],"8yaV8":[function(require,module,exports) {
+},{"7422ead32dcc1e6b":"786KC"}],"9MrlH":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$f95c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$f95c.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "useAuth", ()=>useAuth);
+parcelHelpers.export(exports, "AuthProvider", ()=>AuthProvider);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _s = $RefreshSig$(), _s1 = $RefreshSig$();
+const AuthContext = /*#__PURE__*/ (0, _react.createContext)();
+const useAuth = ()=>{
+    _s();
+    return (0, _react.useContext)(AuthContext);
+};
+_s(useAuth, "gDsCjeeItUuvgOWf1v4qoK9RF6k=");
+const AuthProvider = ({ children })=>{
+    _s1();
+    const [userName, setUserName] = (0, _react.useState)("");
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AuthContext.Provider, {
+        value: {
+            userName,
+            setUserName
+        },
+        children: children
+    }, void 0, false, {
+        fileName: "src/utils/AuthContext.js",
+        lineNumber: 8,
+        columnNumber: 10
+    }, undefined);
+};
+_s1(AuthProvider, "JIezBiY3Im0GvB+UajE6gBj8PwE=");
+_c = AuthProvider;
+var _c;
+$RefreshReg$(_c, "AuthProvider");
+
+  $parcel$ReactRefreshHelpers$f95c.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"8yaV8":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$0606 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -34021,6 +34370,9 @@ var _shimmer = require("./Shimmer");
 var _shimmerDefault = parcelHelpers.interopDefault(_shimmer);
 var _constantJs = require("../constant.js");
 var _reactRouterDom = require("react-router-dom");
+var _useOnlineJs = require("../utils/useOnline.js");
+var _useOnlineJsDefault = parcelHelpers.interopDefault(_useOnlineJs);
+var _authContextJs = require("../utils/AuthContext.js");
 var _s = $RefreshSig$();
 function filterData(searchText, restaurants) {
     const filterData = restaurants.filter((restaurant)=>restaurant.info.name?.toLowerCase()?.includes(searchText.toLowerCase()));
@@ -34032,6 +34384,10 @@ const Body = ()=>{
     const [filteredRestaurants, setFilteredRestaurants] = (0, _react.useState)([]);
     const [searchText, setSearchText] = (0, _react.useState)("");
     const [errorMessage, setErrorMessage] = (0, _react.useState)("");
+    // A restaurant card component which has a label  on it 
+    const RestaurantCardVeg = (0, _restaurantCardJs.withVegLable)((0, _restaurantCardJsDefault.default));
+    // Whenever state variables update, react triggers a reconciliation cycle
+    const { userName, setUserName } = (0, _authContextJs.useAuth)();
     // use useEffect for one time call getRestaurants using empty dependency array
     (0, _react.useEffect)(()=>{
         // API Call
@@ -34073,84 +34429,130 @@ const Body = ()=>{
             setFilteredRestaurants(restaurants);
         }
     };
+    const online = (0, _useOnlineJsDefault.default)();
+    if (!online) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+        className: "offline",
+        children: "You are offline, please check your internet connection!"
+    }, void 0, false, {
+        fileName: "src/components/Body.js",
+        lineNumber: 79,
+        columnNumber: 12
+    }, undefined);
     // not rendered component (Early return)
     if (!allRestaurants) return null;
-    // if(filteredRestaurants?.length === 0) return <h1>No Restaurant match your Filter!</h1>
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "search-container",
+                className: "search-container h-auto bg-purple-50 my-5 shadow-sm",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                         type: "text",
-                        className: "search-input",
+                        className: "m-3 p-2 shadow-md rounded-md focus:outline-none focus:ring focus:ring-violet-300",
                         placeholder: "Search",
                         value: searchText,
                         onChange: (e)=>setSearchText(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/Body.js",
-                        lineNumber: 75,
+                        lineNumber: 86,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "search-btn",
+                        className: "p-2 m-2 text-white rounded-md bg-slate-600 hover:bg-violet-600",
                         onClick: ()=>{
-                            // const data = filterData(searchText, allRestaurants);
-                            // setFilteredRestaurants(data)
-                            // user click on button searchData function is called
                             searchData(searchText, allRestaurants);
                         },
                         children: "Search"
                     }, void 0, false, {
                         fileName: "src/components/Body.js",
-                        lineNumber: 76,
+                        lineNumber: 87,
+                        columnNumber: 13
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        className: "ml-32 font-serif",
+                        children: "UserInfo: "
+                    }, void 0, false, {
+                        fileName: "src/components/Body.js",
+                        lineNumber: 91,
+                        columnNumber: 13
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        className: " p-2 shadow-md rounded-sm focus:outline-none focus:ring focus:ring-violet-300",
+                        placeholder: "Change login info",
+                        onChange: (e)=>setUserName(e.target.value),
+                        value: userName
+                    }, void 0, false, {
+                        fileName: "src/components/Body.js",
+                        lineNumber: 92,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/Body.js",
-                lineNumber: 74,
+                lineNumber: 85,
                 columnNumber: 10
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "m-4 p-4 items-cent",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {}, void 0, false, {
+                    fileName: "src/components/Body.js",
+                    lineNumber: 96,
+                    columnNumber: 11
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/Body.js",
+                lineNumber: 95,
+                columnNumber: 9
             }, undefined),
             errorMessage && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "error-container",
                 children: errorMessage
             }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 84,
+                lineNumber: 99,
                 columnNumber: 26
             }, undefined),
             allRestaurants?.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shimmerDefault.default), {}, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 86,
+                lineNumber: 103,
                 columnNumber: 39
             }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "restaurant-list",
+                className: "flex flex-wrap justify-center",
                 children: filteredRestaurants.map((restaurant)=>{
                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                         to: "/restaurant/" + restaurant?.info?.id,
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantCardJsDefault.default), {
+                        children: restaurant.info.veg ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(RestaurantCardVeg, {
                             ...restaurant?.info
                         }, void 0, false, {
                             fileName: "src/components/Body.js",
-                            lineNumber: 89,
-                            columnNumber: 21
+                            lineNumber: 107,
+                            columnNumber: 33
+                        }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantCardJsDefault.default), {
+                            ...restaurant?.info
+                        }, void 0, false, {
+                            fileName: "src/components/Body.js",
+                            lineNumber: 107,
+                            columnNumber: 79
                         }, undefined)
                     }, restaurant?.info?.id, false, {
                         fileName: "src/components/Body.js",
-                        lineNumber: 88,
+                        lineNumber: 105,
                         columnNumber: 16
                     }, undefined);
                 })
             }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 86,
+                lineNumber: 103,
                 columnNumber: 53
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(Body, "iYzpj+g0wZUtZemL/JJyBNKkZIY=");
+_s(Body, "lSkDLyRJNbUKKEBZsxXaTOMs0Kg=", false, function() {
+    return [
+        (0, _authContextJs.useAuth),
+        (0, _useOnlineJsDefault.default)
+    ];
+});
 _c = Body;
 exports.default = Body;
 var _c;
@@ -34161,7 +34563,7 @@ $RefreshReg$(_c, "Body");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./RestaurantCard.js":"bMboU","./Shimmer":"g6ZGj","../constant.js":"jVIFP","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bMboU":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./RestaurantCard.js":"bMboU","./Shimmer":"g6ZGj","../constant.js":"jVIFP","react-router-dom":"9xmpe","../utils/useOnline.js":"74Yls","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../utils/AuthContext.js":"9MrlH"}],"bMboU":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$ffb1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -34170,11 +34572,12 @@ $parcel$ReactRefreshHelpers$ffb1.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "withVegLable", ()=>withVegLable);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _configJs = require("../config.js");
 const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRatingString })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "card",
+        className: "w-56 p-2 m-2 shadow-md bg-pink-50 hover:scale-105 hover:shadow-xl transition-transform duration-200",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                 src: (0, _configJs.IMG_CDN_URL) + cloudinaryImageId
@@ -34184,6 +34587,7 @@ const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRatingString })=
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                className: "font-bold text-xl",
                 children: [
                     " ",
                     name,
@@ -34195,11 +34599,8 @@ const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRatingString })=
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
-                children: [
-                    " ",
-                    cuisines.join(", ")
-                ]
-            }, void 0, true, {
+                children: cuisines ? cuisines.join(", ") : ""
+            }, void 0, false, {
                 fileName: "src/components/RestaurantCard.js",
                 lineNumber: 11,
                 columnNumber: 13
@@ -34223,6 +34624,34 @@ const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRatingString })=
     }, undefined);
 };
 _c = RestaurantCard;
+const withVegLable = (RestaurantCard)=>{
+    return (props)=>{
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "relative w-56",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                    className: "absolute z-10 bg-slate-200 text-green-700 m-2 p-2 rounded-lg w-20 text-center hover:shadow-xl transition-transform duration-200",
+                    children: "Veg"
+                }, void 0, false, {
+                    fileName: "src/components/RestaurantCard.js",
+                    lineNumber: 23,
+                    columnNumber: 17
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(RestaurantCard, {
+                    ...props
+                }, void 0, false, {
+                    fileName: "src/components/RestaurantCard.js",
+                    lineNumber: 24,
+                    columnNumber: 17
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/RestaurantCard.js",
+            lineNumber: 22,
+            columnNumber: 12
+        }, undefined);
+    };
+};
 exports.default = RestaurantCard;
 var _c;
 $RefreshReg$(_c, "RestaurantCard");
@@ -34718,28 +35147,28 @@ const CardShimmer = ()=>{
             }, void 0, false, {
                 fileName: "src/components/Shimmer.js",
                 lineNumber: 6,
-                columnNumber: 9
+                columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "shimmer-title stroke animate"
             }, void 0, false, {
                 fileName: "src/components/Shimmer.js",
                 lineNumber: 7,
-                columnNumber: 9
+                columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "shimmer-tags  stroke animate"
+                className: "shimmer-tags stroke animate "
             }, void 0, false, {
                 fileName: "src/components/Shimmer.js",
                 lineNumber: 8,
-                columnNumber: 9
+                columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "shimmer-ratings stroke animate"
+                className: "shimmer-details stroke animate "
             }, void 0, false, {
                 fileName: "src/components/Shimmer.js",
                 lineNumber: 9,
-                columnNumber: 9
+                columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
@@ -34947,9 +35376,11 @@ $RefreshReg$(_c2, "Shimmer");
 }
 },{"react/jsx-dev-runtime":"iTorj","../constant.js":"jVIFP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"jVIFP":[function(require,module,exports) {
 // Image CDN URL for Restaurant card
+// export const IMG_CDN_URL =
+//   "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/";
+// Image CDN URL for Restaurant Menu
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "IMG_CDN_URL", ()=>IMG_CDN_URL);
 parcelHelpers.export(exports, "ITEM_IMG_CDN_URL", ()=>ITEM_IMG_CDN_URL);
 parcelHelpers.export(exports, "swiggy_api_URL", ()=>swiggy_api_URL);
 parcelHelpers.export(exports, "swiggy_menu_api_URL", ()=>swiggy_menu_api_URL);
@@ -34957,14 +35388,19 @@ parcelHelpers.export(exports, "shimmer_card_unit", ()=>shimmer_card_unit);
 parcelHelpers.export(exports, "shimmer_menu_card_unit", ()=>shimmer_menu_card_unit);
 parcelHelpers.export(exports, "MENU_ITEM_TYPE_KEY", ()=>MENU_ITEM_TYPE_KEY);
 parcelHelpers.export(exports, "RESTAURANT_TYPE_KEY", ()=>RESTAURANT_TYPE_KEY);
-const IMG_CDN_URL = "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/";
+parcelHelpers.export(exports, "IMG_CDN_URL", ()=>IMG_CDN_URL);
+parcelHelpers.export(exports, "LOGO_URL", ()=>LOGO_URL);
+parcelHelpers.export(exports, "MENU_API", ()=>MENU_API);
 const ITEM_IMG_CDN_URL = "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/";
 const swiggy_api_URL = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING";
-const swiggy_menu_api_URL = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&&submitAction=ENTER&restaurantId=";
+const swiggy_menu_api_URL = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.538747&lng=77.207299&catalog_qa=undefined&submitAction=ENTER&restaurantId=";
 const shimmer_card_unit = 12;
 const shimmer_menu_card_unit = 4;
 const MENU_ITEM_TYPE_KEY = "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory";
 const RESTAURANT_TYPE_KEY = "type.googleapis.com/swiggy.presentation.food.v2.Restaurant";
+const IMG_CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
+const LOGO_URL = "https://png.pngtree.com/png-vector/20230217/ourmid/pngtree-food-logo-design-for-restaurant-and-business-png-image_6604922.png";
+const MENU_API = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9715987&lng=77.5945627&restaurantId=";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8pPOA":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$bc7c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -34980,217 +35416,202 @@ var _foodistanLogoRemovebgPreviewPng = require("../assests/img/foodistan_logo-re
 var _foodistanLogoRemovebgPreviewPngDefault = parcelHelpers.interopDefault(_foodistanLogoRemovebgPreviewPng);
 const Footer = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "container-footer",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "container-inside",
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "row",
+        className: "bg-gray-800 justify-center flex text-white p-7 mt-20",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "p-2 m-3",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "firstCol",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "firstRow",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
-                                    href: "/",
-                                    children: [
-                                        "  ",
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                            className: "logo-footer",
-                                            alt: "logo",
-                                            src: (0, _foodistanLogoRemovebgPreviewPngDefault.default)
-                                        }, void 0, false, {
-                                            fileName: "src/components/Footer.js",
-                                            lineNumber: 8,
-                                            columnNumber: 35
-                                        }, undefined),
-                                        " ",
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                            className: "logo-title",
-                                            children: "FoodIstan"
-                                        }, void 0, false, {
-                                            fileName: "src/components/Footer.js",
-                                            lineNumber: 8,
-                                            columnNumber: 89
-                                        }, undefined)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/Footer.js",
-                                    lineNumber: 8,
-                                    columnNumber: 21
-                                }, undefined)
-                            }, void 0, false, {
-                                fileName: "src/components/Footer.js",
-                                lineNumber: 7,
-                                columnNumber: 21
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "secondRow",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    children: "\xa9 2023 Bundl Technologies Pvt. Ltd"
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
+                            href: "/",
+                            children: [
+                                "  ",
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                    className: "w-55 h-55",
+                                    alt: "logo",
+                                    src: (0, _foodistanLogoRemovebgPreviewPngDefault.default)
                                 }, void 0, false, {
                                     fileName: "src/components/Footer.js",
-                                    lineNumber: 11,
-                                    columnNumber: 25
+                                    lineNumber: 6,
+                                    columnNumber: 35
+                                }, undefined),
+                                " ",
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                    className: "logo-title",
+                                    children: "FoodIstan"
+                                }, void 0, false, {
+                                    fileName: "src/components/Footer.js",
+                                    lineNumber: 6,
+                                    columnNumber: 87
                                 }, undefined)
-                            }, void 0, false, {
-                                fileName: "src/components/Footer.js",
-                                lineNumber: 10,
-                                columnNumber: 21
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/Footer.js",
+                            lineNumber: 6,
+                            columnNumber: 21
+                        }, undefined)
+                    }, void 0, false, {
                         fileName: "src/components/Footer.js",
-                        lineNumber: 6,
-                        columnNumber: 17
+                        lineNumber: 5,
+                        columnNumber: 21
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "second-col",
+                        className: "secondRow",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            children: "\xa9 2023 Bundl Technologies Pvt. Ltd"
+                        }, void 0, false, {
+                            fileName: "src/components/Footer.js",
+                            lineNumber: 9,
+                            columnNumber: 25
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/Footer.js",
+                        lineNumber: 8,
+                        columnNumber: 21
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Footer.js",
+                lineNumber: 4,
+                columnNumber: 17
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "font-bold justify-center p-2 m-3 font-serif text-white",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                        children: "Company"
+                    }, void 0, false, {
+                        fileName: "src/components/Footer.js",
+                        lineNumber: 13,
+                        columnNumber: 21
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
                         children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                                children: "Company"
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "About Us"
                             }, void 0, false, {
                                 fileName: "src/components/Footer.js",
                                 lineNumber: 15,
-                                columnNumber: 21
+                                columnNumber: 25
                             }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "About Us"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 17,
-                                        columnNumber: 25
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Grocery"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 20,
-                                        columnNumber: 25
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Career"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 23,
-                                        columnNumber: 25
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Grocery"
+                            }, void 0, false, {
                                 fileName: "src/components/Footer.js",
-                                lineNumber: 16,
-                                columnNumber: 21
+                                lineNumber: 18,
+                                columnNumber: 25
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Career"
+                            }, void 0, false, {
+                                fileName: "src/components/Footer.js",
+                                lineNumber: 21,
+                                columnNumber: 25
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/Footer.js",
                         lineNumber: 14,
-                        columnNumber: 17
+                        columnNumber: 21
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Footer.js",
+                lineNumber: 12,
+                columnNumber: 17
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "justify-center p-2 m-3 text-white",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                        children: "Legal"
+                    }, void 0, false, {
+                        fileName: "src/components/Footer.js",
+                        lineNumber: 27,
+                        columnNumber: 21
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "third-col",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
                         children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                                children: "Legal"
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Terms & Conditions"
                             }, void 0, false, {
                                 fileName: "src/components/Footer.js",
                                 lineNumber: 29,
-                                columnNumber: 21
+                                columnNumber: 25
                             }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Terms & Conditions"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 31,
-                                        columnNumber: 25
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Privacy Policy"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 34,
-                                        columnNumber: 25
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Cookie Policy"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 37,
-                                        columnNumber: 25
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Privacy Policy"
+                            }, void 0, false, {
                                 fileName: "src/components/Footer.js",
-                                lineNumber: 30,
-                                columnNumber: 21
+                                lineNumber: 32,
+                                columnNumber: 25
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Cookie Policy"
+                            }, void 0, false, {
+                                fileName: "src/components/Footer.js",
+                                lineNumber: 35,
+                                columnNumber: 25
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/Footer.js",
                         lineNumber: 28,
-                        columnNumber: 17
+                        columnNumber: 21
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Footer.js",
+                lineNumber: 26,
+                columnNumber: 17
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "justify-center p-2 m-3 text-white",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                        children: "Contact Us"
+                    }, void 0, false, {
+                        fileName: "src/components/Footer.js",
+                        lineNumber: 41,
+                        columnNumber: 21
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "fourth-col",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
                         children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                                children: "Contact Us"
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Help & Support"
                             }, void 0, false, {
                                 fileName: "src/components/Footer.js",
                                 lineNumber: 43,
-                                columnNumber: 21
+                                columnNumber: 25
                             }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Help & Support"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 45,
-                                        columnNumber: 25
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Partner with us"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 48,
-                                        columnNumber: 25
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                                        children: "Ride with us"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Footer.js",
-                                        lineNumber: 51,
-                                        columnNumber: 25
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Partner with us"
+                            }, void 0, false, {
                                 fileName: "src/components/Footer.js",
-                                lineNumber: 44,
-                                columnNumber: 21
+                                lineNumber: 46,
+                                columnNumber: 25
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                children: "Ride with us"
+                            }, void 0, false, {
+                                fileName: "src/components/Footer.js",
+                                lineNumber: 49,
+                                columnNumber: 25
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/Footer.js",
                         lineNumber: 42,
-                        columnNumber: 17
+                        columnNumber: 21
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/Footer.js",
-                lineNumber: 5,
-                columnNumber: 13
+                lineNumber: 40,
+                columnNumber: 17
             }, undefined)
-        }, void 0, false, {
-            fileName: "src/components/Footer.js",
-            lineNumber: 4,
-            columnNumber: 9
-        }, undefined)
-    }, void 0, false, {
+        ]
+    }, void 0, true, {
         fileName: "src/components/Footer.js",
         lineNumber: 3,
         columnNumber: 10
@@ -35484,129 +35905,210 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _formik = require("formik"); // import Formik from formik
-var _yup = require("yup"); // import Yup from yup
+var _formik = require("formik");
+var _yup = require("yup");
 var _reactRouterDom = require("react-router-dom");
+var _authContextJs = require("../utils/AuthContext.js");
 var _s = $RefreshSig$();
-// create a schema for validation
 const schema = _yup.object().shape({
+    name: _yup.string().required("Name is a required field"),
     email: _yup.string().required("Email is a required field").email("Invalid email format"),
     password: _yup.string().required("Password is a required field").min(8, "Password must be at least 8 characters")
 });
 const Login = ()=>{
     _s();
     const navigate = (0, _reactRouterDom.useNavigate)();
+    const { setUserName } = (0, _authContextJs.useAuth)();
     function handleNavigate(values) {
-        // Alert the input values of the form that we filled
         alert(values);
-        // setTimeout for navigate from login page to home page
+        console.log(values);
+        console.log(email.value);
+        console.log(name.value);
+        setUserName(email.value);
         setTimeout(()=>{
             navigate("/");
         }, 0);
     }
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.Formik), {
-            validationSchema: schema,
-            initialValues: {
-                email: "",
-                password: ""
-            },
-            onSubmit: (values)=>{
-                // call handleNavigate and pass input filed data
-                handleNavigate(JSON.stringify(values));
-            },
-            children: ({ values, errors, touched, handleChange, handleBlur, handleSubmit })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "login-container",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "login-form",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-                            noValidate: true,
-                            onSubmit: handleSubmit,
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                    children: "Login"
-                                }, void 0, false, {
-                                    fileName: "src/components/Login.js",
-                                    lineNumber: 41,
-                                    columnNumber: 17
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                    type: "email",
-                                    name: "email",
-                                    onChange: handleChange,
-                                    onBlur: handleBlur,
-                                    value: values.email,
-                                    placeholder: "Enter your email",
-                                    className: "form-control inp_text",
-                                    id: "email"
-                                }, void 0, false, {
-                                    fileName: "src/components/Login.js",
-                                    lineNumber: 43,
-                                    columnNumber: 17
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    className: "error",
-                                    children: errors.email && touched.email && errors.email
-                                }, void 0, false, {
-                                    fileName: "src/components/Login.js",
-                                    lineNumber: 45,
-                                    columnNumber: 17
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                    type: "password",
-                                    name: "password",
-                                    onChange: handleChange,
-                                    onBlur: handleBlur,
-                                    value: values.password,
-                                    placeholder: "Enter your password",
-                                    className: "form-control"
-                                }, void 0, false, {
-                                    fileName: "src/components/Login.js",
-                                    lineNumber: 49,
-                                    columnNumber: 17
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    className: "error",
-                                    children: errors.password && touched.password && errors.password
-                                }, void 0, false, {
-                                    fileName: "src/components/Login.js",
-                                    lineNumber: 51,
-                                    columnNumber: 17
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "flex items-center justify-center h-screen bg-gray-100",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "w-full max-w-xs",
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formik.Formik), {
+                validationSchema: schema,
+                initialValues: {
+                    name: "",
+                    email: "",
+                    password: ""
+                },
+                onSubmit: (values)=>{
+                    console.log(values);
+                    handleNavigate(JSON.stringify(values));
+                },
+                children: ({ values, errors, touched, handleChange, handleBlur, handleSubmit })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+                        onSubmit: handleSubmit,
+                        className: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                        className: "block text-gray-700 text-sm font-bold mb-2",
+                                        htmlFor: "name",
+                                        children: "Name"
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 46,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                        className: `shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.name && touched.name ? "border-red-500" : ""}`,
+                                        type: "text",
+                                        name: "name",
+                                        onChange: handleChange,
+                                        onBlur: handleBlur,
+                                        value: values.name,
+                                        placeholder: "Name",
+                                        id: "name"
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 47,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "text-red-500 text-xs italic",
+                                        children: errors.name && touched.name && errors.name
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 48,
+                                        columnNumber: 17
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/Login.js",
+                                lineNumber: 45,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                        className: "block text-gray-700 text-sm font-bold mb-2",
+                                        htmlFor: "email",
+                                        children: "Email"
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 54,
+                                        columnNumber: 19
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                        type: "email",
+                                        name: "email",
+                                        onChange: handleChange,
+                                        onBlur: handleBlur,
+                                        value: values.email,
+                                        placeholder: "Enter your email",
+                                        className: `shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email && touched.email ? "border-red-500" : ""}`,
+                                        id: "email"
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 57,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "text-red-500 text-xs italic",
+                                        children: errors.email && touched.email && errors.email
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 58,
+                                        columnNumber: 17
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/Login.js",
+                                lineNumber: 53,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "mb-6",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                        className: "block text-gray-700 text-sm font-bold mb-2",
+                                        htmlFor: "password",
+                                        children: "Password"
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 64,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                        type: "password",
+                                        name: "password",
+                                        onChange: handleChange,
+                                        onBlur: handleBlur,
+                                        value: values.password,
+                                        placeholder: "Enter your password",
+                                        className: `shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ${errors.password && touched.password ? "border-red-500" : ""}`
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 67,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "text-red-500 text-xs italic",
+                                        children: errors.password && touched.password && errors.password
+                                    }, void 0, false, {
+                                        fileName: "src/components/Login.js",
+                                        lineNumber: 68,
+                                        columnNumber: 17
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/Login.js",
+                                lineNumber: 63,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "flex items-center justify-between",
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                                     type: "submit",
+                                    className: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
                                     children: "Login"
                                 }, void 0, false, {
                                     fileName: "src/components/Login.js",
-                                    lineNumber: 55,
+                                    lineNumber: 74,
                                     columnNumber: 17
                                 }, undefined)
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/Login.js",
-                            lineNumber: 40,
-                            columnNumber: 15
-                        }, undefined)
-                    }, void 0, false, {
+                            }, void 0, false, {
+                                fileName: "src/components/Login.js",
+                                lineNumber: 73,
+                                columnNumber: 15
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/components/Login.js",
-                        lineNumber: 38,
-                        columnNumber: 13
+                        lineNumber: 43,
+                        columnNumber: 15
                     }, undefined)
-                }, void 0, false, {
-                    fileName: "src/components/Login.js",
-                    lineNumber: 37,
-                    columnNumber: 13
-                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/Login.js",
+                lineNumber: 28,
+                columnNumber: 9
+            }, undefined)
         }, void 0, false, {
             fileName: "src/components/Login.js",
-            lineNumber: 23,
+            lineNumber: 27,
             columnNumber: 7
         }, undefined)
-    }, void 0, false);
+    }, void 0, false, {
+        fileName: "src/components/Login.js",
+        lineNumber: 26,
+        columnNumber: 10
+    }, undefined);
 };
-_s(Login, "CzcTeTziyjMsSrAVmHuCCb6+Bfg=", false, function() {
+_s(Login, "qaBF0i7DO6ohcDOc4PIkbALT/Tk=", false, function() {
     return [
-        (0, _reactRouterDom.useNavigate)
+        (0, _reactRouterDom.useNavigate),
+        (0, _authContextJs.useAuth)
     ];
 });
 _c = Login;
@@ -35619,7 +36121,7 @@ $RefreshReg$(_c, "Login");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","formik":"aefoQ","yup":"jMMeX","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aefoQ":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","formik":"aefoQ","yup":"jMMeX","react-router-dom":"9xmpe","../utils/AuthContext.js":"9MrlH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aefoQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ErrorMessage", ()=>ErrorMessage);
@@ -40599,29 +41101,18 @@ function printValue(value, quoteStrings) {
 function toArray(value) {
     return value == null ? [] : [].concat(value);
 }
-let _Symbol$toStringTag;
+let _Symbol$toStringTag, _Symbol$hasInstance, _Symbol$toStringTag2;
 let strReg = /\$\{\s*(\w+)\s*\}/g;
 _Symbol$toStringTag = Symbol.toStringTag;
-class ValidationError extends Error {
-    static formatError(message, params) {
-        const path = params.label || params.path || "this";
-        if (path !== params.path) params = Object.assign({}, params, {
-            path
-        });
-        if (typeof message === "string") return message.replace(strReg, (_, key)=>printValue(params[key]));
-        if (typeof message === "function") return message(params);
-        return message;
-    }
-    static isError(err) {
-        return err && err.name === "ValidationError";
-    }
-    constructor(errorOrErrors, value, field, type, disableStack){
-        super();
+class ValidationErrorNoStack {
+    constructor(errorOrErrors, value, field, type){
+        this.name = void 0;
+        this.message = void 0;
         this.value = void 0;
         this.path = void 0;
         this.type = void 0;
-        this.errors = void 0;
         this.params = void 0;
+        this.errors = void 0;
         this.inner = void 0;
         this[_Symbol$toStringTag] = "Error";
         this.name = "ValidationError";
@@ -40640,7 +41131,45 @@ class ValidationError extends Error {
             } else this.errors.push(err);
         });
         this.message = this.errors.length > 1 ? `${this.errors.length} errors occurred` : this.errors[0];
-        if (!disableStack && Error.captureStackTrace) Error.captureStackTrace(this, ValidationError);
+    }
+}
+_Symbol$hasInstance = Symbol.hasInstance;
+_Symbol$toStringTag2 = Symbol.toStringTag;
+class ValidationError extends Error {
+    static formatError(message, params) {
+        const path = params.label || params.path || "this";
+        if (path !== params.path) params = Object.assign({}, params, {
+            path
+        });
+        if (typeof message === "string") return message.replace(strReg, (_, key)=>printValue(params[key]));
+        if (typeof message === "function") return message(params);
+        return message;
+    }
+    static isError(err) {
+        return err && err.name === "ValidationError";
+    }
+    constructor(errorOrErrors, value, field, type, disableStack){
+        const errorNoStack = new ValidationErrorNoStack(errorOrErrors, value, field, type);
+        if (disableStack) return errorNoStack;
+        super();
+        this.value = void 0;
+        this.path = void 0;
+        this.type = void 0;
+        this.params = void 0;
+        this.errors = [];
+        this.inner = [];
+        this[_Symbol$toStringTag2] = "Error";
+        this.name = errorNoStack.name;
+        this.message = errorNoStack.message;
+        this.type = errorNoStack.type;
+        this.value = errorNoStack.value;
+        this.path = errorNoStack.path;
+        this.errors = errorNoStack.errors;
+        this.inner = errorNoStack.inner;
+        if (Error.captureStackTrace) Error.captureStackTrace(this, ValidationError);
+    }
+    static [_Symbol$hasInstance](inst) {
+        return ValidationErrorNoStack[Symbol.hasInstance](inst) || super[Symbol.hasInstance](inst);
     }
 }
 let mixed = {
@@ -40663,6 +41192,9 @@ let string = {
     email: "${path} must be a valid email",
     url: "${path} must be a valid URL",
     uuid: "${path} must be a valid UUID",
+    datetime: "${path} must be a valid ISO date-time",
+    datetime_precision: "${path} must be a valid ISO date-time with a sub-second precision of exactly ${precision} digits",
+    datetime_offset: '${path} must be a valid ISO date-time with UTC "Z" timezone',
     trim: "${path} must be a trimmed string",
     lowercase: "${path} must be a lowercase string",
     uppercase: "${path} must be a upper case string"
@@ -40809,16 +41341,16 @@ function createValidation(config) {
             return Reference.isRef(item) ? item.getValue(value, parent, context) : item;
         }
         function createError(overrides = {}) {
-            var _overrides$disableSta;
             const nextParams = Object.assign({
                 value,
                 originalValue,
                 label: schema.spec.label,
                 path: overrides.path || path,
-                spec: schema.spec
+                spec: schema.spec,
+                disableStackTrace: overrides.disableStackTrace || disableStackTrace
             }, params, overrides.params);
             for (const key of Object.keys(nextParams))nextParams[key] = resolve(nextParams[key]);
-            const error = new ValidationError(ValidationError.formatError(overrides.message || message, nextParams), value, nextParams.path, overrides.type || name, (_overrides$disableSta = overrides.disableStackTrace) != null ? _overrides$disableSta : disableStackTrace);
+            const error = new ValidationError(ValidationError.formatError(overrides.message || message, nextParams), value, nextParams.path, overrides.type || name, nextParams.disableStackTrace);
             error.params = nextParams;
             return error;
         }
@@ -41211,7 +41743,7 @@ class Schema {
             key: undefined,
             // index: undefined,
             [isIndex ? "index" : "key"]: k,
-            path: isIndex || k.includes(".") ? `${parentPath || ""}[${value ? k : `"${k}"`}]` : (parentPath ? `${parentPath}.` : "") + key
+            path: isIndex || k.includes(".") ? `${parentPath || ""}[${isIndex ? k : `"${k}"`}]` : (parentPath ? `${parentPath}.` : "") + key
         });
         return (_, panic, next)=>this.resolve(testOptions)._validate(value, testOptions, panic, next);
     }
@@ -41595,6 +42127,52 @@ class BooleanSchema extends Schema {
     }
 }
 create$7.prototype = BooleanSchema.prototype;
+/**
+ * This file is a modified version of the file from the following repository:
+ * Date.parse with progressive enhancement for ISO 8601 <https://github.com/csnover/js-iso8601>
+ * NON-CONFORMANT EDITION.
+ * © 2011 Colin Snover <http://zetafleet.com>
+ * Released under MIT license.
+ */ // prettier-ignore
+//                1 YYYY                2 MM        3 DD              4 HH     5 mm        6 ss           7 msec         8 Z 9 ±   10 tzHH    11 tzmm
+const isoReg = /^(\d{4}|[+-]\d{6})(?:-?(\d{2})(?:-?(\d{2}))?)?(?:[ T]?(\d{2}):?(\d{2})(?::?(\d{2})(?:[,.](\d{1,}))?)?(?:(Z)|([+-])(\d{2})(?::?(\d{2}))?)?)?$/;
+function parseIsoDate(date) {
+    const struct = parseDateStruct(date);
+    if (!struct) return Date.parse ? Date.parse(date) : Number.NaN;
+    // timestamps without timezone identifiers should be considered local time
+    if (struct.z === undefined && struct.plusMinus === undefined) return new Date(struct.year, struct.month, struct.day, struct.hour, struct.minute, struct.second, struct.millisecond).valueOf();
+    let totalMinutesOffset = 0;
+    if (struct.z !== "Z" && struct.plusMinus !== undefined) {
+        totalMinutesOffset = struct.hourOffset * 60 + struct.minuteOffset;
+        if (struct.plusMinus === "+") totalMinutesOffset = 0 - totalMinutesOffset;
+    }
+    return Date.UTC(struct.year, struct.month, struct.day, struct.hour, struct.minute + totalMinutesOffset, struct.second, struct.millisecond);
+}
+function parseDateStruct(date) {
+    var _regexResult$7$length, _regexResult$;
+    const regexResult = isoReg.exec(date);
+    if (!regexResult) return null;
+    // use of toNumber() avoids NaN timestamps caused by “undefined”
+    // values being passed to Date constructor
+    return {
+        year: toNumber(regexResult[1]),
+        month: toNumber(regexResult[2], 1) - 1,
+        day: toNumber(regexResult[3], 1),
+        hour: toNumber(regexResult[4]),
+        minute: toNumber(regexResult[5]),
+        second: toNumber(regexResult[6]),
+        millisecond: regexResult[7] ? // allow arbitrary sub-second precision beyond milliseconds
+        toNumber(regexResult[7].substring(0, 3)) : 0,
+        precision: (_regexResult$7$length = (_regexResult$ = regexResult[7]) == null ? void 0 : _regexResult$.length) != null ? _regexResult$7$length : undefined,
+        z: regexResult[8] || undefined,
+        plusMinus: regexResult[9] || undefined,
+        hourOffset: toNumber(regexResult[10]),
+        minuteOffset: toNumber(regexResult[11])
+    };
+}
+function toNumber(str, defaultValue = 0) {
+    return Number(str) || defaultValue;
+}
 // Taken from HTML spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
 let rEmail = // eslint-disable-next-line
 /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -41602,6 +42180,10 @@ let rUrl = // eslint-disable-next-line
 /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 // eslint-disable-next-line
 let rUUID = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
+let yearMonthDay = "^\\d{4}-\\d{2}-\\d{2}";
+let hourMinuteSecond = "\\d{2}:\\d{2}:\\d{2}";
+let zOrOffset = "(([+-]\\d{2}(:?\\d{2})?)|Z)";
+let rIsoDateTime = new RegExp(`${yearMonthDay}T${hourMinuteSecond}(\\.\\d+)?${zOrOffset}$`);
 let isTrimmed = (value)=>isAbsent(value) || value === value.trim();
 let objStringTag = ({}).toString();
 function create$6() {
@@ -41721,6 +42303,46 @@ class StringSchema extends Schema {
             name: "uuid",
             message,
             excludeEmptyString: false
+        });
+    }
+    datetime(options) {
+        let message = "";
+        let allowOffset;
+        let precision;
+        if (options) {
+            if (typeof options === "object") ({ message = "", allowOffset = false, precision } = options);
+            else message = options;
+        }
+        return this.matches(rIsoDateTime, {
+            name: "datetime",
+            message: message || string.datetime,
+            excludeEmptyString: true
+        }).test({
+            name: "datetime_offset",
+            message: message || string.datetime_offset,
+            params: {
+                allowOffset
+            },
+            skipAbsent: true,
+            test: (value)=>{
+                if (!value || allowOffset) return true;
+                const struct = parseDateStruct(value);
+                if (!struct) return false;
+                return !!struct.z;
+            }
+        }).test({
+            name: "datetime_precision",
+            message: message || string.datetime_precision,
+            params: {
+                precision
+            },
+            skipAbsent: true,
+            test: (value)=>{
+                if (!value || precision == undefined) return true;
+                const struct = parseDateStruct(value);
+                if (!struct) return false;
+                return struct.precision === precision;
+            }
         });
     }
     //-- transforms --
@@ -41879,46 +42501,6 @@ create$5.prototype = NumberSchema.prototype;
 //
 // Number Interfaces
 //
-/**
- * This file is a modified version of the file from the following repository:
- * Date.parse with progressive enhancement for ISO 8601 <https://github.com/csnover/js-iso8601>
- * NON-CONFORMANT EDITION.
- * © 2011 Colin Snover <http://zetafleet.com>
- * Released under MIT license.
- */ // prettier-ignore
-//                1 YYYY                2 MM        3 DD              4 HH     5 mm        6 ss           7 msec         8 Z 9 ±   10 tzHH    11 tzmm
-const isoReg = /^(\d{4}|[+-]\d{6})(?:-?(\d{2})(?:-?(\d{2}))?)?(?:[ T]?(\d{2}):?(\d{2})(?::?(\d{2})(?:[,.](\d{1,}))?)?(?:(Z)|([+-])(\d{2})(?::?(\d{2}))?)?)?$/;
-function toNumber(str, defaultValue = 0) {
-    return Number(str) || defaultValue;
-}
-function parseIsoDate(date) {
-    const regexResult = isoReg.exec(date);
-    if (!regexResult) return Date.parse ? Date.parse(date) : Number.NaN;
-    // use of toNumber() avoids NaN timestamps caused by “undefined”
-    // values being passed to Date constructor
-    const struct = {
-        year: toNumber(regexResult[1]),
-        month: toNumber(regexResult[2], 1) - 1,
-        day: toNumber(regexResult[3], 1),
-        hour: toNumber(regexResult[4]),
-        minute: toNumber(regexResult[5]),
-        second: toNumber(regexResult[6]),
-        millisecond: regexResult[7] ? // allow arbitrary sub-second precision beyond milliseconds
-        toNumber(regexResult[7].substring(0, 3)) : 0,
-        z: regexResult[8] || undefined,
-        plusMinus: regexResult[9] || undefined,
-        hourOffset: toNumber(regexResult[10]),
-        minuteOffset: toNumber(regexResult[11])
-    };
-    // timestamps without timezone identifiers should be considered local time
-    if (struct.z === undefined && struct.plusMinus === undefined) return new Date(struct.year, struct.month, struct.day, struct.hour, struct.minute, struct.second, struct.millisecond).valueOf();
-    let totalMinutesOffset = 0;
-    if (struct.z !== "Z" && struct.plusMinus !== undefined) {
-        totalMinutesOffset = struct.hourOffset * 60 + struct.minuteOffset;
-        if (struct.plusMinus === "+") totalMinutesOffset = 0 - totalMinutesOffset;
-    }
-    return Date.UTC(struct.year, struct.month, struct.day, struct.hour, struct.minute + totalMinutesOffset, struct.second, struct.millisecond);
-}
 let invalidDate = new Date("");
 let isDate = (obj)=>Object.prototype.toString.call(obj) === "[object Date]";
 function create$4() {
@@ -42920,301 +43502,188 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
 var _reactRouterDom = require("react-router-dom"); // import useParams for read `resId`
-var _constant = require("../constant");
+var _useRestaurant = require("../utils/useRestaurant");
+var _useRestaurantDefault = parcelHelpers.interopDefault(_useRestaurant);
+var _restaurantCategory = require("./RestaurantCategory");
+var _restaurantCategoryDefault = parcelHelpers.interopDefault(_restaurantCategory);
+var _react = require("react");
 var _shimmer = require("./Shimmer");
+var _constant = require("../constant");
 var _s = $RefreshSig$();
+// import {
+//   IMG_CDN_URL,
+//   ITEM_IMG_CDN_URL,
+// } from "../constant";
 const RestaurantMenu = ()=>{
     _s();
-    const { resId } = (0, _reactRouterDom.useParams)(); // call useParams and get value of restaurant id using object destructuring
-    const [restaurant, setRestaurant] = (0, _react.useState)(null); // call useState to store the api data in res
-    const [menuItems, setMenuItems] = (0, _react.useState)([]);
-    (0, _react.useEffect)(()=>{
-        getRestaurantInfo(); // call getRestaurantInfo function so it fetch api data and set data in restaurant state variable
-    }, []);
-    async function getRestaurantInfo() {
-        const options = {
-            method: "GET",
-            headers: {
-                accept: "application/json",
-                Authorization: "*"
-            }
-        };
-        try {
-            const response = await fetch((0, _constant.swiggy_menu_api_URL) + resId, options);
-            const json = await response.json();
-            // Set restaurant data
-            const restaurantData = json?.data?.cards?.map((x)=>x.card)?.find((x)=>x && x.card["@type"] === (0, _constant.RESTAURANT_TYPE_KEY))?.card?.info || null;
-            setRestaurant(restaurantData);
-            // Set menu item data
-            const menuItemsData = json?.data?.cards.find((x)=>x.groupedCard)?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map((x)=>x.card?.card)?.filter((x)=>x["@type"] == (0, _constant.MENU_ITEM_TYPE_KEY))?.map((x)=>x.itemCards).flat().map((x)=>x.card?.info) || [];
-            const uniqueMenuItems = [];
-            menuItemsData.forEach((item)=>{
-                if (!uniqueMenuItems.find((x)=>x.id === item.id)) uniqueMenuItems.push(item);
-            });
-            setMenuItems(uniqueMenuItems);
-        } catch (error) {
-            setMenuItems([]);
-            setRestaurant(null);
-            console.log(error);
-        }
-    }
-    return !restaurant ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shimmer.MenuShimmer), {}, void 0, false, {
+    const { resId } = (0, _reactRouterDom.useParams)();
+    //to render the menu data
+    const [restaurantInfo, menuItems] = (0, _useRestaurantDefault.default)(resId);
+    //by default first accordian is open
+    const [showIndex, setShowIndex] = (0, _react.useState)(null);
+    const uniqueCategories = Array.from(new Set(menuItems.map((item)=>item.category)));
+    const itemsByCategory = uniqueCategories.map((category)=>({
+            category,
+            items: menuItems.filter((item)=>item.category === category)
+        }));
+    return !restaurantInfo ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shimmer.MenuShimmer), {}, void 0, false, {
         fileName: "src/components/RestaurantMenu.js",
-        lineNumber: 45,
-        columnNumber: 24
+        lineNumber: 27,
+        columnNumber: 28
     }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "restaurant-menu",
+        className: "text-center  bg-gray-100",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "restaurant-summary",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                        className: "restaurant-img",
-                        src: (0, _constant.IMG_CDN_URL) + restaurant?.cloudinaryImageId,
-                        alt: restaurant?.name
-                    }, void 0, false, {
-                        fileName: "src/components/RestaurantMenu.js",
-                        lineNumber: 47,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "restaurant-summary-details",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                className: "restaurant-title",
-                                children: restaurant?.name
-                            }, void 0, false, {
-                                fileName: "src/components/RestaurantMenu.js",
-                                lineNumber: 49,
-                                columnNumber: 11
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                className: "restaurant-tags",
-                                children: restaurant?.cuisines?.join(", ")
-                            }, void 0, false, {
-                                fileName: "src/components/RestaurantMenu.js",
-                                lineNumber: 50,
-                                columnNumber: 11
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "restaurant-details",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        className: "restaurant-rating",
-                                        style: restaurant?.avgRating < 4 ? {
-                                            backgroundColor: "var(--light-red)"
-                                        } : restaurant?.avgRating === "--" ? {
-                                            backgroundColor: "white",
-                                            color: "black"
-                                        } : {
-                                            color: "white"
-                                        },
-                                        children: [
-                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
-                                                className: "fa-solid fa-star"
-                                            }, void 0, false, {
-                                                fileName: "src/components/RestaurantMenu.js",
-                                                lineNumber: 60,
-                                                columnNumber: 13
-                                            }, undefined),
-                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                                children: restaurant?.avgRating
-                                            }, void 0, false, {
-                                                fileName: "src/components/RestaurantMenu.js",
-                                                lineNumber: 61,
-                                                columnNumber: 15
-                                            }, undefined)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/RestaurantMenu.js",
-                                        lineNumber: 52,
-                                        columnNumber: 13
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        className: "restaurant-rating-slash",
-                                        children: "|"
-                                    }, void 0, false, {
-                                        fileName: "src/components/RestaurantMenu.js",
-                                        lineNumber: 63,
-                                        columnNumber: 13
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        children: restaurant?.sla?.slaString
-                                    }, void 0, false, {
-                                        fileName: "src/components/RestaurantMenu.js",
-                                        lineNumber: 64,
-                                        columnNumber: 13
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        className: "restaurant-rating-slash",
-                                        children: "|"
-                                    }, void 0, false, {
-                                        fileName: "src/components/RestaurantMenu.js",
-                                        lineNumber: 65,
-                                        columnNumber: 13
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        children: restaurant?.costForTwoMessage
-                                    }, void 0, false, {
-                                        fileName: "src/components/RestaurantMenu.js",
-                                        lineNumber: 66,
-                                        columnNumber: 13
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/RestaurantMenu.js",
-                                lineNumber: 51,
-                                columnNumber: 11
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/RestaurantMenu.js",
-                        lineNumber: 48,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/RestaurantMenu.js",
-                lineNumber: 46,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "restaurant-menu-content",
+                className: "text-center m-2",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "menu-items-container",
+                    className: "px-5 mx-5",
                     children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                            className: "menu-title-wrap",
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                    className: "menu-title",
-                                    children: "Recommended"
-                                }, void 0, false, {
-                                    fileName: "src/components/RestaurantMenu.js",
-                                    lineNumber: 74,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    className: "menu-count",
-                                    children: [
-                                        menuItems.length,
-                                        " ITEMS"
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/RestaurantMenu.js",
-                                    lineNumber: 75,
-                                    columnNumber: 13
-                                }, undefined)
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/RestaurantMenu.js",
-                            lineNumber: 73,
-                            columnNumber: 11
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                            className: "menu-items-list",
-                            children: menuItems.map((item)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                    className: "menu-item",
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                            className: "menu-item-details",
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                                    className: "item-title",
-                                                    children: item?.name
-                                                }, void 0, false, {
-                                                    fileName: "src/components/RestaurantMenu.js",
-                                                    lineNumber: 82,
-                                                    columnNumber: 19
-                                                }, undefined),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                    className: "item-cost",
-                                                    children: item?.price > 0 ? new Intl.NumberFormat("en-IN", {
-                                                        style: "currency",
-                                                        currency: "INR"
-                                                    }).format(item?.price / 100) : " "
-                                                }, void 0, false, {
-                                                    fileName: "src/components/RestaurantMenu.js",
-                                                    lineNumber: 83,
-                                                    columnNumber: 19
-                                                }, undefined),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                    className: "item-desc",
-                                                    children: item?.description
-                                                }, void 0, false, {
-                                                    fileName: "src/components/RestaurantMenu.js",
-                                                    lineNumber: 89,
-                                                    columnNumber: 19
-                                                }, undefined)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/RestaurantMenu.js",
-                                            lineNumber: 81,
-                                            columnNumber: 17
-                                        }, undefined),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                            className: "menu-img-wrapper",
-                                            children: [
-                                                item?.imageId && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                                    className: "menu-item-img",
-                                                    src: (0, _constant.ITEM_IMG_CDN_URL) + item?.imageId,
-                                                    alt: item?.name
-                                                }, void 0, false, {
-                                                    fileName: "src/components/RestaurantMenu.js",
-                                                    lineNumber: 92,
-                                                    columnNumber: 37
-                                                }, undefined),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                                                    className: "add-btn",
-                                                    children: " ADD +"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/RestaurantMenu.js",
-                                                    lineNumber: 93,
-                                                    columnNumber: 19
-                                                }, undefined)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/RestaurantMenu.js",
-                                            lineNumber: 91,
-                                            columnNumber: 17
-                                        }, undefined)
-                                    ]
-                                }, item?.id, true, {
-                                    fileName: "src/components/RestaurantMenu.js",
-                                    lineNumber: 80,
-                                    columnNumber: 36
-                                }, undefined))
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                            className: "font-bold font-sans text-4xl m-6",
+                            children: restaurantInfo?.name
                         }, void 0, false, {
                             fileName: "src/components/RestaurantMenu.js",
-                            lineNumber: 79,
+                            lineNumber: 30,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                            className: "mx-auto m-3",
+                            src: (0, _constant.IMG_CDN_URL) + restaurantInfo?.cloudinaryImageId
+                        }, void 0, false, {
+                            fileName: "src/components/RestaurantMenu.js",
+                            lineNumber: 31,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                            className: "text-lg font-semibold",
+                            children: restaurantInfo?.costForTwoMessage
+                        }, void 0, false, {
+                            fileName: "src/components/RestaurantMenu.js",
+                            lineNumber: 32,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                            className: "text-2xl font-semibold font-serif text-gray-900",
+                            children: restaurantInfo?.cuisines.join(", ")
+                        }, void 0, false, {
+                            fileName: "src/components/RestaurantMenu.js",
+                            lineNumber: 33,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/RestaurantMenu.js",
-                    lineNumber: 72,
+                    lineNumber: 29,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/RestaurantMenu.js",
-                lineNumber: 71,
+                lineNumber: 28,
                 columnNumber: 7
-            }, undefined)
+            }, undefined),
+            uniqueCategories.map((item, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantCategoryDefault.default), {
+                    data: item,
+                    categoryItems: itemsByCategory,
+                    menuItems: menuItems,
+                    isOpen: index === showIndex ? true : false,
+                    setShowIndex: ()=>setShowIndex(index)
+                }, index, false, {
+                    fileName: "src/components/RestaurantMenu.js",
+                    lineNumber: 38,
+                    columnNumber: 46
+                }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/RestaurantMenu.js",
-        lineNumber: 45,
-        columnNumber: 42
+        lineNumber: 27,
+        columnNumber: 46
     }, undefined);
 };
-_s(RestaurantMenu, "HAXyrIbP532797rOFAwShvQr2a8=", false, function() {
+_s(RestaurantMenu, "xTDBYsNNga0N4A3KYPd9v8Y34gY=", false, function() {
     return [
-        (0, _reactRouterDom.useParams)
+        (0, _reactRouterDom.useParams),
+        (0, _useRestaurantDefault.default)
     ];
 });
 _c = RestaurantMenu;
+// const RestaurantMenu = () => {
+//   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
+//   const [restaurant, menuItems] = useRestaurant(resId);
+//    console.log(restaurant, menuItems)
+//   return !restaurant ? (
+//     <MenuShimmer />
+//   ) : (
+//     <div className="mt-20 min-h-screen w-auto">
+//       <div className="flex h-50 justify-center items-center bg-[var(--light-black)] text-[var(--light-white-text)] overflow-y-hidden">
+//         <img
+//           className="w-62 h-42 rounded"
+//           src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
+//           alt={restaurant?.name}
+//         />
+//         <div className="flex flex-col basis-[520px] m-5">
+//           <h2 className="text-5xl max-w-[540px] font-bold">{restaurant?.name}</h2>
+//           <p className="whitespace-nowrap text-inherit opacity-70 text-base max-w-[540px]">{restaurant?.cuisines?.join(", ")}</p>
+//           <div className="flex mt-[18px] justify-between items-center text-xs font-semibold pb-[10px] text-inherit max-w-[340px]">
+//             <div className="flex items-center px-[8px] py-[5px] gap-[5px] bg-[var(--dark-green)] rounded-md" style={
+//             (restaurant?.avgRating) < 4
+//               ? { backgroundColor: "var(--light-red)" }
+//               : (restaurant?.avgRating) === "--"
+//               ? { backgroundColor: "white", color: "black" }
+//               : { color: "white" }
+//           }>
+//             <i className="fa-solid fa-star"></i>
+//               <span>{restaurant?.avgRating}</span>
+//             </div>
+//             <div className="rpx-5">|</div>
+//             <div>{restaurant?.sla?.slaString}</div>
+//             <div className="px-5">|</div>
+//             <div>{restaurant?.costForTwoMessage}</div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* categories accordian */}
+//       <div className="flex justify-center">
+//         <div className="mt-7.5 w-[850px]">
+//           <div className="p-5">
+//             <h3 className="menu-title">Recommended</h3>
+//             <p className="mt-2.5 leading-normal text-[rgba(40,44,63,0.45)] text-base">
+//               {menuItems.length} ITEMS
+//             </p>
+//           </div>
+//           <div className="flex justify-center flex-col">
+//             {menuItems.map((item) => (
+//               <div className="flex justify-between p-5 border-b border-[rgba(40,44,63,0.45)]" style={{borderWidth: '0.5px'}} key={item?.id}>
+//                 <div className="lex flex-col self-start overflow-hidden">
+//                   <h3 className="w-auto text-slate-950">{item?.name}</h3>
+//                   <p className="mt-1 text-base font-normal text-slate-600 w-inherit">
+//                     {item?.price > 0
+//                       ? new Intl.NumberFormat("en-IN", {
+//                           style: "currency",
+//                           currency: "INR",
+//                         }).format(item?.price / 100)
+//                       : " "}
+//                   </p>
+//                   <p className="mt-3 leading-snug text-slate-900 text-opacity-45 text-base">{item?.description}</p>
+//                 </div>
+//                 <div className="flex flex-col justify-center items-end w-[300px] overflow-hidden">
+//                   {item?.imageId && (
+//                     <img
+//                       className="h-24 w-24 rounded-md"
+//                       src={ITEM_IMG_CDN_URL + item?.imageId}
+//                       alt={item?.name}
+//                     />
+//                   )}
+//                   <button className="bg-orange-600 px-6 py-2 cursor-pointer outline-none border hover:bg-orange-400 mt-2.5 rounded-md "> ADD +</button>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 exports.default = RestaurantMenu; // import { useState, useEffect } from "react";
  // import { useParams } from "react-router-dom";
  // import {IMG_CDN_URL} from "../config.js";
@@ -43277,6 +43746,355 @@ $RefreshReg$(_c, "RestaurantMenu");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","../constant":"jVIFP","./Shimmer":"g6ZGj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["bgABq","1xC6H","2kQhy"], "2kQhy", "parcelRequireb35c")
+},{"react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","../utils/useRestaurant":"ewgpj","./RestaurantCategory":"K7XHe","react":"21dqq","./Shimmer":"g6ZGj","../constant":"jVIFP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"ewgpj":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5009 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5009.prelude(module);
+
+try {
+// import { useEffect, useState } from 'react';
+// import { MENU_API } from '../constant';
+// const useRestaurantMenu = (resId) => {
+//   const [restaurantInfo, setRestaurantInfo] = useState(null);
+//   // fetchdata
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+//   const fetchData = async () => {
+//     const data = await fetch(MENU_API + resId);
+//     const json = await data.json();
+//     setRestaurantInfo(json.data);
+//   };
+//   return restaurantInfo;
+// };
+// export default useRestaurantMenu;
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _constant = require("../constant");
+var _s = $RefreshSig$();
+const useRestaurantMenu = (resId)=>{
+    _s();
+    const [restaurantInfo, setRestaurantInfo] = (0, _react.useState)(null);
+    const [menuItems, setMenuItems] = (0, _react.useState)([]);
+    (0, _react.useEffect)(()=>{
+        getRestaurantInfo();
+    }, []);
+    async function getRestaurantInfo() {
+        try {
+            const response = await fetch((0, _constant.swiggy_menu_api_URL) + resId);
+            const json = await response.json();
+            // Set restaurant data
+            const restaurantData = json?.data?.cards?.map((x)=>x.card)?.find((x)=>x && x.card["@type"] === (0, _constant.RESTAURANT_TYPE_KEY))?.card?.info || null;
+            console.log("resdata", restaurantData);
+            setRestaurantInfo(restaurantData);
+            // Set menu item data
+            const menuItemsData = json?.data?.cards.find((x)=>x.groupedCard)?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map((x)=>x.card?.card)?.filter((x)=>x["@type"] == (0, _constant.MENU_ITEM_TYPE_KEY))?.map((x)=>x.itemCards).flat().map((x)=>x.card?.info) || [];
+            const uniqueMenuItems = [];
+            menuItemsData.forEach((item)=>{
+                if (!uniqueMenuItems.find((x)=>x.id === item.id)) uniqueMenuItems.push(item);
+            });
+            setMenuItems(uniqueMenuItems);
+        // console.log(menuItems)
+        } catch (error) {
+            setMenuItems([]);
+            setRestaurant(null);
+            console.log(error);
+        }
+    }
+    return [
+        restaurantInfo,
+        menuItems
+    ];
+};
+_s(useRestaurantMenu, "yfGCEYWWy+/gZUNdLDew1DYIYDI=");
+exports.default = useRestaurantMenu;
+
+  $parcel$ReactRefreshHelpers$5009.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","../constant":"jVIFP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"K7XHe":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$b1f7 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$b1f7.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _itemList = require("./ItemList");
+var _itemListDefault = parcelHelpers.interopDefault(_itemList);
+const RestaurantCategory = ({ data, categoryItems, menuItems, isOpen, setShowIndex })=>{
+    // 'data' is each unique category name, 'categoryItems' is an array of objects which contains menuItems per category name, 'menuItems' is the array of objs contains all the menu data.
+    // const [isOpen, setIsOpen] = useState(true); // State to toggle accordion
+    // on handleClick modify the state variable of the parent
+    const handleClick = ()=>{
+        // setIsOpen(!isOpen); // Toggle the isOpen state
+        setShowIndex();
+    };
+    // Filter items that belong to the current category
+    const filteredMenuItems = menuItems.filter((item)=>item.category === data);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "w-8/12 mx-auto pt-7 pb-7 my-4 mb-6 bg-gray-50 shadow-lg p-4",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "flex justify-between cursor-pointer",
+                onClick: handleClick,
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                        className: "font-bold text-xl",
+                        children: [
+                            data,
+                            " (",
+                            filteredMenuItems.length,
+                            ")"
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/RestaurantCategory.js",
+                        lineNumber: 25,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: isOpen ? "\uD83D\uDD3C" : "\uD83D\uDD3D"
+                    }, void 0, false, {
+                        fileName: "src/components/RestaurantCategory.js",
+                        lineNumber: 28,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/RestaurantCategory.js",
+                lineNumber: 24,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "bg-white ",
+                children: isOpen && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _itemListDefault.default), {
+                    items: filteredMenuItems
+                }, void 0, false, {
+                    fileName: "src/components/RestaurantCategory.js",
+                    lineNumber: 32,
+                    columnNumber: 20
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/RestaurantCategory.js",
+                lineNumber: 31,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/RestaurantCategory.js",
+        lineNumber: 22,
+        columnNumber: 10
+    }, undefined);
+};
+_c = RestaurantCategory;
+exports.default = RestaurantCategory;
+var _c;
+$RefreshReg$(_c, "RestaurantCategory");
+
+  $parcel$ReactRefreshHelpers$b1f7.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./ItemList":"kZjho","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"kZjho":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$1342 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$1342.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _constant = require("../constant");
+const ItemList = ({ items })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "mt-6 pt-3",
+        children: items.map((item, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "flex mb-2 border-b-2 w-auto items-center justify-between",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "mt-8 mb-8 w-80 justify-items-start",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                                className: "text-md font-semibold  text-left",
+                                children: item.name
+                            }, void 0, false, {
+                                fileName: "src/components/ItemList.js",
+                                lineNumber: 10,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                                className: "text-left mb-3",
+                                children: [
+                                    "\u20B9 ",
+                                    item.price / 100
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/ItemList.js",
+                                lineNumber: 11,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                className: "text-sm text-slate-600 text-left",
+                                children: item.description
+                            }, void 0, false, {
+                                fileName: "src/components/ItemList.js",
+                                lineNumber: 12,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ItemList.js",
+                        lineNumber: 9,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "relative pl-3 mb-6 justify-end items-center",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                src: `${(0, _constant.IMG_CDN_URL)}/${item.imageId}`,
+                                alt: item.name,
+                                className: "w-60 h-40"
+                            }, void 0, false, {
+                                fileName: "src/components/ItemList.js",
+                                lineNumber: 16,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                                className: "absolute rounded-md bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-10 bg-orange-700 text-white font-bold shadow-lg hover:bg-orange-500 text-sm",
+                                children: "Add+"
+                            }, void 0, false, {
+                                fileName: "src/components/ItemList.js",
+                                lineNumber: 17,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ItemList.js",
+                        lineNumber: 15,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, index, true, {
+                fileName: "src/components/ItemList.js",
+                lineNumber: 7,
+                columnNumber: 35
+            }, undefined))
+    }, void 0, false, {
+        fileName: "src/components/ItemList.js",
+        lineNumber: 6,
+        columnNumber: 10
+    }, undefined);
+};
+_c = ItemList;
+exports.default = ItemList;
+var _c;
+$RefreshReg$(_c, "ItemList");
+
+  $parcel$ReactRefreshHelpers$1342.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../constant":"jVIFP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3IbrY":[function(require,module,exports) {
+module.exports = require("d734ea4e73d9d393")(require("c631379c87e361e0").getBundleURL("aXMci") + "Instamart.0762395e.js" + "?" + Date.now()).catch((err)=>{
+    delete module.bundle.cache[module.id];
+    throw err;
+}).then(()=>module.bundle.root("gB4Fs"));
+
+},{"d734ea4e73d9d393":"61B45","c631379c87e361e0":"lgJ39"}],"61B45":[function(require,module,exports) {
+"use strict";
+var cacheLoader = require("ca2a84f7fa4a3bb0");
+module.exports = cacheLoader(function(bundle) {
+    return new Promise(function(resolve, reject) {
+        // Don't insert the same script twice (e.g. if it was already in the HTML)
+        var existingScripts = document.getElementsByTagName("script");
+        if ([].concat(existingScripts).some(function isCurrentBundle(script) {
+            return script.src === bundle;
+        })) {
+            resolve();
+            return;
+        }
+        var preloadLink = document.createElement("link");
+        preloadLink.href = bundle;
+        preloadLink.rel = "preload";
+        preloadLink.as = "script";
+        document.head.appendChild(preloadLink);
+        var script = document.createElement("script");
+        script.async = true;
+        script.type = "text/javascript";
+        script.src = bundle;
+        script.onerror = function(e) {
+            var error = new TypeError("Failed to fetch dynamically imported module: ".concat(bundle, ". Error: ").concat(e.message));
+            script.onerror = script.onload = null;
+            script.remove();
+            reject(error);
+        };
+        script.onload = function() {
+            script.onerror = script.onload = null;
+            resolve();
+        };
+        document.getElementsByTagName("head")[0].appendChild(script);
+    });
+});
+
+},{"ca2a84f7fa4a3bb0":"j49pS"}],"j49pS":[function(require,module,exports) {
+"use strict";
+var cachedBundles = {};
+var cachedPreloads = {};
+var cachedPrefetches = {};
+function getCache(type) {
+    switch(type){
+        case "preload":
+            return cachedPreloads;
+        case "prefetch":
+            return cachedPrefetches;
+        default:
+            return cachedBundles;
+    }
+}
+module.exports = function(loader, type) {
+    return function(bundle) {
+        var cache = getCache(type);
+        if (cache[bundle]) return cache[bundle];
+        return cache[bundle] = loader.apply(null, arguments).catch(function(e) {
+            delete cache[bundle];
+            throw e;
+        });
+    };
+};
+
+},{}],"c5vgB":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$4ca8 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$4ca8.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+const UserContext = /*#__PURE__*/ (0, _react.createContext)({
+    loggedInUser: "Default Name"
+});
+exports.default = UserContext;
+
+  $parcel$ReactRefreshHelpers$4ca8.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["9wh9R","1xC6H","2kQhy"], "2kQhy", "parcelRequireb35c")
 
 //# sourceMappingURL=index.7271efb6.js.map

@@ -1,18 +1,16 @@
 import Logo from "../assests/img/foodistan_logo-removebg-preview.png";
 const Footer = () =>{
     return(
-       <div className="container-footer">
-        <div className="container-inside">
-            <div className="row">
-                <div className="firstCol">
-                    <div className="firstRow">
-                    <a href="/">  <img className="logo-footer" alt="logo"  src={Logo} /> <span className="logo-title">FoodIstan</span></a>
+       <div className="bg-gray-800 justify-center flex text-white p-7 mt-20">
+                <div className="p-2 m-3">
+                    <div>
+                    <a href="/">  <img className="w-55 h-55" alt="logo"  src={Logo} /> <span className="logo-title">FoodIstan</span></a>
                     </div>
                     <div className="secondRow">
                         <p>© 2023 Bundl Technologies Pvt. Ltd</p>
                     </div>
                 </div>
-                <div className="second-col">
+                <div className="font-bold justify-center p-2 m-3 font-serif text-white">
                     <h4>Company</h4>
                     <ul>
                         <li>
@@ -26,7 +24,7 @@ const Footer = () =>{
                         </li>
                     </ul>
                 </div>
-                <div className="third-col">
+                <div className="justify-center p-2 m-3 text-white">
                     <h4>Legal</h4>
                     <ul>
                         <li>
@@ -40,7 +38,7 @@ const Footer = () =>{
                         </li>
                     </ul>
                 </div>
-                <div className="fourth-col">
+                <div className="justify-center p-2 m-3 text-white">
                     <h4>Contact Us</h4>
                     <ul>
                         <li>
@@ -54,11 +52,7 @@ const Footer = () =>{
                         </li>
                     </ul>
                 </div>
-            </div>
         </div>
-
-
-       </div>
     )
 
 }
